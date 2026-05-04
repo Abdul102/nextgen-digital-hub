@@ -53,16 +53,20 @@ export default function ProjectsList({ projects }) {
           onClick={() => setActive(null)}
           style={{
             position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.7)',
-            display: 'grid', placeItems: 'center', padding: 20, zIndex: 1000,
-            backdropFilter: 'blur(4px)'
+            padding: 20, zIndex: 10000,
+            backdropFilter: 'blur(4px)',
+            overflowY: 'auto', display: 'flex', alignItems: 'flex-start',
+            justifyContent: 'center', paddingTop: 'max(40px, 5vh)',
+            paddingBottom: 'max(40px, 5vh)'
           }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
               background: 'white', borderRadius: 'var(--radius-lg)',
-              maxWidth: 720, width: '100%', maxHeight: '90vh', overflow: 'auto',
-              boxShadow: 'var(--shadow-xl)'
+              maxWidth: 720, width: '100%',
+              boxShadow: 'var(--shadow-xl)',
+              margin: 'auto', position: 'relative'
             }}
           >
             <div className={`project-thumb ${active.thumb}`} style={{ aspectRatio: '21/9' }}>
