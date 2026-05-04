@@ -20,6 +20,8 @@ const FALLBACK = [
 ];
 
 async function getPosts() {
+  // Skip DB at build time if not configured — use fallback so build never fails
+  if (!process.env.MONGODB_URI) return FALLBACK;
   try {
     await dbConnect();
     const posts = await Post.find({ published: true }).sort({ createdAt: -1 }).limit(20).lean();
