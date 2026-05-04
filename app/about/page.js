@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SiteShell from '../components/SiteShell';
 import Reveal from '../components/Reveal';
+import CEOImage from './CEOImage';
 
 export const metadata = {
   title: 'About Us — Mission, Vision & Leadership | NextGen Digital Hub',
@@ -71,10 +72,7 @@ export default function AboutPage() {
 
           <div className="split mt-lg">
             <Reveal>
-              <div className="image-card">
-                <div className="initials">AR</div>
-                <img src="/images/ceo.jpg" alt="Abdul Rehman, Founder & CEO" onError={(e) => e.target.remove()} />
-              </div>
+              <CEOImage />
             </Reveal>
             <Reveal>
               <span className="eyebrow">Founder & CEO</span>
