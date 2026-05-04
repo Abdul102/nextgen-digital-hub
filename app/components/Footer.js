@@ -46,9 +46,9 @@ export default function Footer() {
           <div>
             <h4>Get in Touch</h4>
             <ul className="footer-links">
-              <li>hello@nextgendigitalhub.com</li>
-              <li>+1 (555) 010-2026</li>
-              <li>San Francisco, CA</li>
+              <li>myjmail92@gmail.com</li>
+              <li>+92 321 1464482</li>
+              <li>Pakistan</li>
             </ul>
           </div>
         </div>
