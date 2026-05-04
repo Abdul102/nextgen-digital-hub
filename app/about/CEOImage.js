@@ -8,7 +8,7 @@ export default function CEOImage() {
       <div className="initials">AR</div>
       {!hasError && (
         <img
-          src="/images/ceo.jpg"
+          src="/images/ceo.png"
           alt="Abdul Rehman, Founder & CEO of NextGen Digital Hub"
           onError={() => setHasError(true)}
           loading="lazy"
