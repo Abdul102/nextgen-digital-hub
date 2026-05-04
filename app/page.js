@@ -19,10 +19,10 @@ export default function HomePage() {
             <h1>Empowering Businesses with <span className="gradient-text">Next-Gen Digital Solutions</span></h1>
             <p className="lead">From AI-powered platforms to enterprise-grade QA, SaaS, and full-stack development — we build the technology that moves modern businesses forward.</p>
             <div className="hero-actions">
-              <Link href="/contact" className="btn btn-primary btn-lg">Get Started
+              <Link href="/contact" className="btn btn-primary btn-lg">Get a Free Quote
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </Link>
-              <Link href="/contact" className="btn btn-outline btn-lg">Contact Us</Link>
+              <Link href="/services" className="btn btn-outline btn-lg">Explore Services</Link>
             </div>
             <div className="hero-stats">
               <div><StatCounter to={120} suffix="+" /><div className="stat-label">Projects Delivered</div></div>
