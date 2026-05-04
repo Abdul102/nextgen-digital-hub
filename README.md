@@ -1,86 +1,160 @@
-# NextGen Digital Hub — Website
+# NextGen Digital Hub — v2 (Next.js + MongoDB + Auth + Real-time)
 
-A modern, fully responsive marketing website for NextGen Digital Hub, a digital services company. Built with **plain HTML, CSS and vanilla JavaScript** so it deploys anywhere with zero build step.
+Full-stack version of the marketing site, with admin dashboard, blog CMS, persistent contact submissions, and real-time notifications.
 
-## Pages
+## Stack
 
-- `index.html` — Homepage (hero, services, why-choose-us, testimonials, CTA)
-- `services.html` — Full services catalog with delivery process
-- `about.html` — Company intro, mission/vision, why we are better, **CEO profile** (Abdul Rehman) with skills, timeline, achievements
-- `projects.html` — Portfolio (6 projects: SaaS, AI tools, QA automation, web apps)
-- `blog.html` — Blog cards (AI in QA, testing trends, SaaS development, automation)
-- `contact.html` — Contact form, email/phone, map placeholder
+- **Next.js 14** (App Router, JavaScript)
+- **MongoDB Atlas** + Mongoose (data layer)
+- **NextAuth.js** (admin authentication)
+- **Pusher** (real-time notifications when contact form is submitted)
+- **Anthropic Claude API** (chatbot)
 
-## Features
-
-- Premium SaaS-grade UI (blue / purple / white theme with gradients)
-- Smooth animations via Intersection Observer
-- Fully responsive (mobile + tablet + desktop)
-- Animated stat counters
-- AI chatbot widget (UI only — wire to your backend or Claude API)
-- Page loader, fixed header with scroll effect, mobile hamburger menu
-- Working contact form (front-end validation + success state)
-- SEO-optimized: meta titles/descriptions, semantic HTML, keyword tags
-- No build step, no dependencies — just static files
-
-## Local preview
-
-Any static server works:
-
-```bash
-# Python 3
-python3 -m http.server 8000
-
-# Node
-npx serve .
-```
-
-Open http://localhost:8000
-
-## Deployment
-
-### Vercel
-```bash
-npm i -g vercel
-vercel
-```
-Or drag-and-drop the folder at https://vercel.com/new.
-
-### Netlify
-Drag-and-drop the folder at https://app.netlify.com/drop, or:
-```bash
-npm i -g netlify-cli
-netlify deploy --prod
-```
-
-The included `vercel.json` and `netlify.toml` set sensible defaults.
-
-## File structure
+## Project structure
 
 ```
 service/
-├── index.html
-├── services.html
-├── about.html
-├── projects.html
-├── blog.html
-├── contact.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── main.js
-├── vercel.json
-├── netlify.toml
-└── README.md
+├── app/
+│   ├── layout.js                 root layout
+│   ├── globals.css               all styling (port of v1 CSS)
+│   ├── page.js                   homepage
+│   ├── services/page.js
+│   ├── about/page.js
+│   ├── projects/page.js
+│   ├── blog/page.js              reads posts from MongoDB
+│   ├── contact/
+│   │   ├── page.js
+│   │   └── ContactForm.js
+│   ├── components/               Header, Footer, Chatbot, Reveal, etc.
+│   ├── admin/
+│   │   ├── layout.js
+│   │   ├── AdminShell.js         sidebar + live toast
+│   │   ├── SessionProvider.js
+│   │   ├── login/page.js
+│   │   ├── page.js               dashboard
+│   │   ├── messages/page.js      view/manage submissions
+│   │   └── posts/
+│   │       ├── page.js           list
+│   │       └── new/page.js       create
+│   └── api/
+│       ├── chat/route.js         Claude chatbot
+│       ├── contact/route.js      saves to DB + Pusher event
+│       ├── messages/...          admin CRUD
+│       ├── posts/...             public list + admin CRUD
+│       └── auth/[...nextauth]/route.js
+├── lib/                          mongodb, pusher, auth helpers
+├── models/                       Mongoose schemas
+├── middleware.js                 protects /admin/**
+├── public/images/                drop ceo.jpg here
+├── .env.local.example            copy to .env.local for local dev
+├── package.json
+└── next.config.js
 ```
 
-## Wiring up the chatbot
+## One-time cleanup (after migrating from v1)
 
-The chatbot UI is in place. To make it intelligent, replace the random-reply block in `js/main.js` (search for `replies = [`) with a `fetch()` call to your backend or to the Anthropic API.
+The old static HTML / CSS / JS files from v1 are no longer used. Delete them:
 
-## Wiring up the contact form
+```bash
+chmod +x cleanup-old-files.sh
+./cleanup-old-files.sh
+```
 
-The form currently shows a success message client-side. To actually deliver messages, point the form `action` at:
-- A serverless function (e.g. Vercel Function, Netlify Function)
-- Formspree / Getform / Basin
-- Your own API endpoint
+This removes: `index.html`, `services.html`, `about.html`, `projects.html`, `blog.html`, `contact.html`, `css/`, `js/`, `api/chat.js`, `netlify.toml`.
+
+## Local setup
+
+```bash
+# Install dependencies
+npm install
+
+# Copy env template and fill in values (see "Environment variables" below)
+cp .env.local.example .env.local
+# ...edit .env.local...
+
+# Run dev server
+npm run dev
+```
+
+Then visit:
+- http://localhost:3000 — public site
+- http://localhost:3000/admin — redirects to /admin/login
+
+## Environment variables
+
+| Var | Where to get | Required |
+|---|---|---|
+| `MONGODB_URI` | https://cloud.mongodb.com → free M0 cluster → Connect | yes |
+| `NEXTAUTH_SECRET` | Run `openssl rand -base64 32` | yes |
+| `NEXTAUTH_URL` | `http://localhost:3000` (dev) / your Vercel URL (prod) | yes |
+| `ADMIN_EMAIL` | Your choice (used to log into /admin) | yes |
+| `ADMIN_PASSWORD` | Your choice (strong) | yes |
+| `ANTHROPIC_API_KEY` | https://console.anthropic.com → API Keys | optional |
+| `PUSHER_APP_ID`, `PUSHER_KEY`, `PUSHER_SECRET`, `PUSHER_CLUSTER` | https://dashboard.pusher.com → free Channels app | optional |
+| `NEXT_PUBLIC_PUSHER_KEY`, `NEXT_PUBLIC_PUSHER_CLUSTER` | Same key + cluster, exposed to browser | optional |
+
+## Deploying / updating on Vercel
+
+You already have the project on GitHub at `Abdul102/nextgen-digital-hub` and connected to Vercel. The deploy flow stays the same:
+
+```bash
+git add -A
+git commit -m "Migrate to Next.js + MongoDB + admin"
+git push
+```
+
+Vercel auto-detects Next.js, builds, and deploys (~2 minutes for the first build, ~30s for subsequent updates).
+
+### Add env vars on Vercel
+
+1. https://vercel.com → your project → **Settings → Environment Variables**
+2. Add each variable from the table above (use the **production** scope; mark `NEXT_PUBLIC_*` as such — Vercel handles this automatically by name prefix).
+3. Click **Save** for each.
+4. Trigger a new deploy: **Deployments → … → Redeploy** (or push a tiny commit).
+
+### Custom domain
+
+**Settings → Domains** → add your domain → follow DNS instructions.
+
+## Updating the site (your daily workflow)
+
+**Option 1 — Local edit:**
+```bash
+cd "/Users/abdulrehman/Documents/Claude/Projects/service"
+# edit files
+npm run dev   # preview at localhost:3000
+git add -A
+git commit -m "describe change"
+git push      # auto-deploys to Vercel in ~30s
+```
+
+**Option 2 — GitHub web editor (no terminal):**
+- Go to https://github.com/Abdul102/nextgen-digital-hub
+- Click any file, click ✏️, edit, commit
+- Vercel auto-deploys
+
+**Option 3 — Admin dashboard (no code):**
+- Sign in at `/admin/login`
+- Add blog posts via **Blog Posts → New Post**
+- Posts appear on `/blog` automatically (cached for 60s)
+
+## Real-time notifications
+
+Once Pusher is configured, the admin dashboard receives a toast popup the instant someone submits the contact form — no refresh needed. The Messages list also updates live.
+
+## Production checklist
+
+- [ ] MongoDB Atlas cluster created, IP allowlist set to "0.0.0.0/0" (Vercel needs it) or to Vercel's IP ranges
+- [ ] All env vars added to Vercel
+- [ ] `NEXTAUTH_URL` set to actual production URL (NOT localhost)
+- [ ] Admin password is strong and stored safely
+- [ ] CEO photo uploaded at `public/images/ceo.jpg`
+- [ ] First blog post added via admin
+- [ ] Tested contact form submission end-to-end (DB save + admin sees it live)
+
+## Notes
+
+- Free MongoDB Atlas M0 cluster: 512 MB, plenty for thousands of submissions and posts.
+- Free Pusher Channels: 200k messages/day, 100 concurrent connections — way more than this site needs.
+- Free Anthropic credits cover hundreds of chatbot conversations; set spend limits in console for safety.
+- Total monthly cost at typical traffic: **$0**.
