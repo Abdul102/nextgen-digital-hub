@@ -14,12 +14,11 @@ export default function AdminShell({ children }) {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const [toast, setToast] = useState(null);
+  const isLogin = pathname === '/admin/login';
 
-  // Hide shell entirely on the login page
-  if (pathname === '/admin/login') return children;
-
-  // Live notifications via Pusher
+  // Live notifications via Pusher (only when shell is shown — skipped on login page)
   useEffect(() => {
+    if (isLogin) return;
     let pusher, channel;
     let cancelled = false;
     async function setup() {
@@ -27,24 +26,30 @@ export default function AdminShell({ children }) {
       const key = process.env.NEXT_PUBLIC_PUSHER_KEY;
       const cluster = process.env.NEXT_PUBLIC_PUSHER_CLUSTER;
       if (!key || !cluster) return;
-      const Pusher = (await import('pusher-js')).default;
-      if (cancelled) return;
-      pusher = new Pusher(key, { cluster });
-      channel = pusher.subscribe('admin-channel');
-      channel.bind('new-message', (data) => {
-        setToast({ name: data?.name || 'Someone', service: data?.service || '' });
-        setTimeout(() => setToast(null), 5000);
-        // Optional: simple beep
-        try { new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=').play(); } catch {}
-      });
+      try {
+        const Pusher = (await import('pusher-js')).default;
+        if (cancelled) return;
+        pusher = new Pusher(key, { cluster });
+        channel = pusher.subscribe('admin-channel');
+        channel.bind('new-message', (data) => {
+          setToast({ name: data?.name || 'Someone', service: data?.service || '' });
+          setTimeout(() => setToast(null), 5000);
+        });
+      } catch (e) {
+        // Pusher not available — non-fatal
+        console.warn('[pusher] init failed:', e?.message);
+      }
     }
     setup();
     return () => {
       cancelled = true;
-      if (channel) channel.unbind_all();
-      if (pusher) pusher.disconnect();
+      if (channel) try { channel.unbind_all(); } catch {}
+      if (pusher) try { pusher.disconnect(); } catch {}
     };
-  }, []);
+  }, [isLogin]);
+
+  // After all hooks: render
+  if (isLogin) return children;
 
   return (
     <div className="admin-shell">
@@ -62,7 +67,7 @@ export default function AdminShell({ children }) {
           <Link href="/" target="_blank">🌐 View Site</Link>
           <button
             onClick={() => signOut({ callbackUrl: '/admin/login' })}
-            style={{ padding: '10px 14px', borderRadius: 'var(--radius)', textAlign: 'left', color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontSize: '0.9rem', marginTop: 16 }}
+            style={{ padding: '10px 14px', borderRadius: 'var(--radius)', textAlign: 'left', color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontSize: '0.9rem', marginTop: 16, background: 'transparent', border: 'none', cursor: 'pointer' }}
           >
             🚪 Sign out
           </button>
@@ -70,7 +75,7 @@ export default function AdminShell({ children }) {
         {status === 'authenticated' && (
           <div style={{ marginTop: 32, padding: '12px 14px', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius)', fontSize: '0.8rem' }}>
             <div style={{ color: 'rgba(255,255,255,0.5)' }}>Signed in as</div>
-            <div style={{ color: 'white', fontWeight: 600 }}>{session.user?.email}</div>
+            <div style={{ color: 'white', fontWeight: 600 }}>{session?.user?.email}</div>
           </div>
         )}
       </aside>
