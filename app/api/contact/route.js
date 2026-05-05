@@ -4,7 +4,7 @@ import { dbConnect } from '@/lib/mongodb';
 import Message from '@/models/Message';
 import { getPusher } from '@/lib/pusher';
 import { sendWhatsApp } from '@/lib/whatsapp';
-import { sendTelegram } from '@/lib/telegram';
+import { sendTelegram, buildContactHtml } from '@/lib/telegram';
 import { sendEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
@@ -58,15 +58,8 @@ export async function POST(req) {
       `View: ${adminLink}`;
     sendWhatsApp(waText).catch(() => {});
 
-    // 2. Telegram (Markdown formatted — looks great)
-    const tgText =
-      `🔔 *New inquiry — NextGen Digital Hub*\n\n` +
-      `👤 *Name:* ${doc.name}\n` +
-      `📧 *Email:* \`${doc.email}\`\n` +
-      `🛠 *Service:* ${doc.service}\n\n` +
-      `💬 *Message:*\n${doc.message}\n\n` +
-      `🔗 [Open in Admin](${adminLink})`;
-    sendTelegram(tgText).catch(() => {});
+    // 2. Telegram (HTML formatted — user input safely escaped)
+    sendTelegram(buildContactHtml(doc, adminLink)).catch(() => {});
 
     // 3. Email via Resend (HTML formatted)
     const html = `
