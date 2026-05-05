@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -46,6 +47,7 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-cta">
+          <ThemeToggle />
           <Link href="/contact" className="btn btn-ghost btn-sm">Get a Quote</Link>
           <Link href="/contact" className="btn btn-primary btn-sm">Get Started</Link>
           <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen((v) => !v)}>
