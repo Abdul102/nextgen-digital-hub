@@ -1433,3 +1433,54 @@ p { color: var(--text-soft); }
 .header { min-height: var(--header-h); }
 .nav { flex-wrap: nowrap; gap: 12px; }
 .nav-cta { gap: 8px; flex-shrink: 0; }
+
+/* ===========================================
+   Modal hover state + dark mode polish
+   =========================================== */
+.modal-close-btn:hover {
+  background: var(--text) !important;
+  color: var(--white) !important;
+  transform: rotate(90deg);
+}
+.modal-card h2,
+.modal-card h3,
+.modal-card h4 { color: var(--text); }
+.modal-card p { color: var(--text-soft); }
+.modal-card .tech { background: var(--bg-soft); color: var(--text-soft); }
+
+/* Stat cards inside modals — dark mode friendly */
+.modal-card [data-stat-card] {
+  background: var(--bg-soft);
+  border-color: var(--border);
+}
+
+/* CTA box at bottom of blog modal */
+.modal-cta-box {
+  background: var(--gradient-soft);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+[data-theme="dark"] .modal-cta-box {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+/* Page header in dark mode — slightly different bg */
+[data-theme="dark"] .page-header { background: var(--bg); }
+[data-theme="dark"] .page-header::after { opacity: 0.25; }
+
+/* Chatbot bubbles in dark mode */
+[data-theme="dark"] .bot-msg { background: var(--bg); border-color: var(--border); }
+
+/* Section bg-soft override in dark */
+[data-theme="dark"] section[style*="background: var(--bg-soft)"] { background: var(--bg-soft) !important; }
+
+/* CTA banner stays dark in both themes (already dark gradient) */
+
+/* Footer in dark mode — slightly different to differentiate from body */
+[data-theme="dark"] .footer { background: #050810; }
+
+/* Hero in dark mode */
+[data-theme="dark"] .hero { background: var(--gradient-hero); }
+
+/* Floating cards in hero — dark mode */
+[data-theme="dark"] .floating-card { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
+[data-theme="dark"] .floating-card .icon { background: rgba(79, 70, 229, 0.2); color: #a5b4fc; }

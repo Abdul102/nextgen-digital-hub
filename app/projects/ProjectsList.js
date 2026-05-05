@@ -72,7 +72,7 @@ export default function ProjectsList({ projects }) {
                 <h3 style={{ fontSize: '1rem', fontFamily: 'var(--font-sans)', fontWeight: 600, marginBottom: 12 }}>Results</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 28 }}>
                   {active.results.map((r, i) => (
-                    <div key={i} style={{ background: 'var(--bg-soft)', padding: 16, borderRadius: 'var(--radius)', textAlign: 'center', border: '1px solid var(--border)' }}>
+                    <div key={i} data-stat-card style={{ padding: 16, borderRadius: 'var(--radius)', textAlign: 'center', border: '1px solid var(--border)', background: 'var(--bg-soft)' }}>
                       <div className="gradient-text" style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 700, marginBottom: 4 }}>{r.value}</div>
                       <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{r.label}</div>
                     </div>

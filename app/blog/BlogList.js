@@ -57,7 +57,7 @@ export default function BlogList({ posts }) {
                 ))}
               </div>
 
-              <div style={{ marginTop: 32, padding: 24, background: 'var(--gradient-soft)', borderRadius: 'var(--radius-lg)', textAlign: 'center', border: '1px solid rgba(79, 70, 229, 0.15)' }}>
+              <div className="modal-cta-box" style={{ marginTop: 32, padding: 24, borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
                 <p style={{ marginBottom: 12, fontWeight: 600, color: 'var(--text)' }}>Want to learn more?</p>
                 <a href="/contact" className="btn btn-primary">Get in touch with our team →</a>
               </div>
