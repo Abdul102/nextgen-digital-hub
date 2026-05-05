@@ -18,8 +18,8 @@ export default function BlogList({ posts }) {
             tabIndex={0}
             onKeyDown={(e) => { if (e.key === 'Enter') setActive(p); }}
           >
-            <div className={`blog-thumb ${p.thumbVariant}`}>
-              <span className="topic">{p.topic}</span>
+            <div className={`blog-thumb ${p.thumbVariant}`} style={p.coverImage ? { backgroundImage: `url(${p.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}>
+              {!p.coverImage && <span className="topic">{p.topic}</span>}
             </div>
             <div className="blog-info">
               <div className="blog-meta">
@@ -38,8 +38,8 @@ export default function BlogList({ posts }) {
         {active && (
           <>
             {/* Hero thumb */}
-            <div className={`blog-thumb ${active.thumbVariant}`} style={{ aspectRatio: '21/8', borderRadius: 0, position: 'relative' }}>
-              <span className="topic" style={{ fontSize: '1.4rem' }}>{active.topic}</span>
+            <div className={`blog-thumb ${active.thumbVariant}`} style={{ aspectRatio: '21/8', borderRadius: 0, position: 'relative', ...(active.coverImage ? { backgroundImage: `url(${active.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}) }}>
+              {!active.coverImage && <span className="topic" style={{ fontSize: '1.4rem' }}>{active.topic}</span>}
             </div>
 
             {/* Content */}

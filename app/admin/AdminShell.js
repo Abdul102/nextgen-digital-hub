@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 const NAV = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
   { href: '/admin/messages', label: 'Messages', icon: '💬' },
-  { href: '/admin/posts', label: 'Blog Posts', icon: '📝' }
+  { href: '/admin/posts', label: 'Blog Posts', icon: '📝' },
+  { href: '/admin/services', label: 'Services', icon: '🛠️' },
+  { href: '/admin/settings', label: 'Site Settings', icon: '⚙️' }
 ];
 
 export default function AdminShell({ children }) {

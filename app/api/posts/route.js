@@ -31,7 +31,7 @@ export async function POST(req) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const { title, excerpt, body: content, topic, thumbVariant, readTime, published } = body || {};
+  const { title, excerpt, body: content, topic, thumbVariant, coverImage, readTime, published } = body || {};
   if (!title || !content) {
     return Response.json({ error: 'Title and body required.' }, { status: 400 });
   }
@@ -40,7 +40,7 @@ export async function POST(req) {
     const baseSlug = slugify(title);
     const slug = baseSlug + '-' + Math.random().toString(36).slice(2, 6);
     const doc = await Post.create({
-      title, excerpt, body: content, topic, thumbVariant, readTime,
+      title, excerpt, body: content, topic, thumbVariant, coverImage, readTime,
       slug, published: published !== false
     });
     return Response.json({ ok: true, id: String(doc._id) });

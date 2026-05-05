@@ -1,16 +1,30 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function CEOImage() {
-  const [hasError, setHasError] = useState(false);
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const url = data?.settings?.ceoPhoto;
+        if (url) setPhoto(url);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <div className="image-card">
       <div className="initials">AR</div>
-      {!hasError && (
+      {photo ? (
+        <img src={photo} alt="Founder & CEO" loading="lazy" />
+      ) : (
+        // Fallback to bundled file if user already added one to public/images/
         <img
           src="/images/ceo.png"
-          alt="Abdul Rehman, Founder & CEO of NextGen Digital Hub"
-          onError={() => setHasError(true)}
+          alt="Founder & CEO"
+          onError={(e) => e.target.remove()}
           loading="lazy"
         />
       )}

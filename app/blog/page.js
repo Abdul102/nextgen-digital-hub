@@ -81,7 +81,8 @@ async function getPosts() {
       body: p.body || '',
       topic: p.topic,
       readTime: p.readTime,
-      thumbVariant: p.thumbVariant
+      thumbVariant: p.thumbVariant,
+      coverImage: p.coverImage || ''
     }));
   } catch {
     return FALLBACK;

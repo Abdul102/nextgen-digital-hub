@@ -1,7 +1,9 @@
-// POST /api/contact — saves to MongoDB and broadcasts a Pusher event.
+// POST /api/contact — saves to MongoDB, broadcasts a Pusher event,
+// and forwards a WhatsApp notification to the admin (via CallMeBot).
 import { dbConnect } from '@/lib/mongodb';
 import Message from '@/models/Message';
 import { getPusher } from '@/lib/pusher';
+import { sendWhatsApp } from '@/lib/whatsapp';
 
 export const runtime = 'nodejs';
 
@@ -37,10 +39,19 @@ export async function POST(req) {
           createdAt: doc.createdAt
         });
       } catch (e) {
-        // non-fatal — message is saved
         console.warn('[pusher] trigger failed:', e?.message);
       }
     }
+
+    // Fire-and-forget WhatsApp notification (won't block response if it fails)
+    const waText =
+      `*New inquiry — NextGen Digital Hub*\n\n` +
+      `*Name:* ${doc.name}\n` +
+      `*Email:* ${doc.email}\n` +
+      `*Service:* ${doc.service}\n` +
+      `*Message:* ${doc.message}\n\n` +
+      `View in admin: ${process.env.NEXTAUTH_URL || ''}/admin/messages`;
+    sendWhatsApp(waText).catch(() => {});
 
     return Response.json({ ok: true, id: String(doc._id) });
   } catch (e) {

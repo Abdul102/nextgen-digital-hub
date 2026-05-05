@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema(
     body: { type: String, required: true },
     topic: { type: String, default: 'Engineering' },
     thumbVariant: { type: String, default: 'thumb-1' }, // thumb-1 .. thumb-6
+    coverImage: { type: String, default: '' }, // base64 data URL (optional)
     readTime: { type: String, default: '5 min read' },
     published: { type: Boolean, default: true }
   },
