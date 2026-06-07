@@ -89,10 +89,10 @@ export default function Chatbot() {
 
 function staticReply(t) {
   const s = t.toLowerCase();
-  if (/price|quote|cost|hire|rate/.test(s)) return ‘Rates depend on scope and engagement type. Drop a message on the Contact page and Abdul will get back within 24 hours!’;
-  if (/ai|llm|gpt|agent/.test(s)) return ‘Abdul specialises in AI agent testing, LLM evaluation (DeepEval, LangSmith), RAG accuracy testing, and hallucination tracking.’;
-  if (/qa|test|selenium|playwright|cypress/.test(s)) return ‘Abdul builds end-to-end automation frameworks using Playwright, Selenium, and Cypress — with CI/CD integration and self-healing locators.’;
-  if (/experience|work|job|background/.test(s)) return ‘Abdul has 3+ years as a QA Specialist at iClosed, working on automation, AI testing, and full-stack development. Check the About page for details!’;
-  if (/contact|email|reach/.test(s)) return ‘You can reach Abdul at abdulrehmanzahoor10@gmail.com or use the Contact page on this site.’;
+  if (/price|quote|cost|hire|rate/.test(s)) return "Rates depend on scope and engagement type. Drop a message on the Contact page and Abdul will get back within 24 hours!";
+  if (/ai|llm|gpt|agent/.test(s)) return "Abdul specialises in AI agent testing, LLM evaluation (DeepEval, LangSmith), RAG accuracy testing, and hallucination tracking.";
+  if (/qa|test|selenium|playwright|cypress/.test(s)) return "Abdul builds E2E automation frameworks using Playwright, Selenium, and Cypress with CI/CD integration and self-healing locators.";
+  if (/experience|work|job|background/.test(s)) return "Abdul has 3+ years as a QA Specialist at iClosed, working on automation, AI testing, and full-stack development. Check the About page for details!";
+  if (/contact|email|reach/.test(s)) return "You can reach Abdul at abdulrehmanzahoor10@gmail.com or use the Contact page on this site.";
   return "Great question! Head to the Contact page and Abdul will personally get back to you within 24 hours.";
 }
