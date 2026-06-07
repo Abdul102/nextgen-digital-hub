@@ -58,8 +58,8 @@ export default function AdminShell({ children }) {
     <div className="admin-shell">
       <aside className="admin-sidebar">
         <Link href="/" className="logo">
-          <span className="logo-mark">N</span>
-          <span style={{ color: 'white' }}>NextGen Admin</span>
+          <span className="logo-mark">AR</span>
+          <span style={{ color: 'white' }}>Abdul Rehman</span>
         </Link>
         <nav>
           {NAV.map((n) => (

@@ -3,7 +3,7 @@ import SiteShell from '../components/SiteShell';
 import Reveal from '../components/Reveal';
 
 export const metadata = {
-  title: 'Services — AI, QA, Web, Mobile, SaaS & Cloud | NextGen Digital Hub',
+  title: 'Services | Abdul Rehman — QA Engineer',
   description: 'Explore NextGen Digital Hub\'s full service catalog: AI, QA, SaaS, Web, Mobile, Cloud, Android and Business Analytics.'
 };
 

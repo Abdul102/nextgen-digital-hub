@@ -5,7 +5,7 @@ export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Hey! I'm the NextGen AI assistant. How can I help you today?" }
+    { role: 'assistant', content: "Hey! I'm Abdul Rehman's AI assistant. How can I help you today?" }
   ]);
   const [busy, setBusy] = useState(false);
   const bodyRef = useRef(null);
@@ -57,7 +57,7 @@ export default function Chatbot() {
             </svg>
           </div>
           <div>
-            <div className="bot-name">NextGen Assistant</div>
+            <div className="bot-name">Abdul Rehman Assistant</div>
             <div className="bot-status">Online — typically replies instantly</div>
           </div>
           <button className="chatbot-close" style={{ marginLeft: 'auto', color: 'white', opacity: 0.7 }} onClick={() => setOpen(false)} aria-label="Close">
@@ -89,8 +89,10 @@ export default function Chatbot() {
 
 function staticReply(t) {
   const s = t.toLowerCase();
-  if (/price|quote|cost/.test(s)) return 'Pricing depends on scope — share details on the Contact page and we’ll send a tailored quote within 24 hours.';
-  if (/ai|llm/.test(s)) return 'We build production AI: LLM apps, RAG systems, intelligent automation. Want to discuss?';
-  if (/qa|test/.test(s)) return 'Our QA practice covers manual, automated, performance & security testing — fully integrated with CI/CD.';
-  return "Thanks! Use our Contact page and a real human will follow up within 24 hours.";
+  if (/price|quote|cost|hire|rate/.test(s)) return ‘Rates depend on scope and engagement type. Drop a message on the Contact page and Abdul will get back within 24 hours!’;
+  if (/ai|llm|gpt|agent/.test(s)) return ‘Abdul specialises in AI agent testing, LLM evaluation (DeepEval, LangSmith), RAG accuracy testing, and hallucination tracking.’;
+  if (/qa|test|selenium|playwright|cypress/.test(s)) return ‘Abdul builds end-to-end automation frameworks using Playwright, Selenium, and Cypress — with CI/CD integration and self-healing locators.’;
+  if (/experience|work|job|background/.test(s)) return ‘Abdul has 3+ years as a QA Specialist at iClosed, working on automation, AI testing, and full-stack development. Check the About page for details!’;
+  if (/contact|email|reach/.test(s)) return ‘You can reach Abdul at abdulrehmanzahoor10@gmail.com or use the Contact page on this site.’;
+  return "Great question! Head to the Contact page and Abdul will personally get back to you within 24 hours.";
 }

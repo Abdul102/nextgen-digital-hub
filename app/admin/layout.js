@@ -1,7 +1,7 @@
 import AdminSessionProvider from './SessionProvider';
 import AdminShell from './AdminShell';
 
-export const metadata = { title: 'Admin — NextGen Digital Hub' };
+export const metadata = { title: 'Admin — Abdul Rehman Portfolio' };
 // Admin uses NextAuth + live data — never prerender at build time
 export const dynamic = 'force-dynamic';
 

@@ -3,8 +3,8 @@ import Reveal from '../components/Reveal';
 import ContactForm from './ContactForm';
 
 export const metadata = {
-  title: 'Contact Us — Get a Quote | NextGen Digital Hub',
-  description: 'Get in touch with NextGen Digital Hub. Request a quote for AI, QA, SaaS, Web, or Mobile development.'
+  title: 'Contact Abdul Rehman — QA Engineer',
+  description: 'Get in touch with Abdul Rehman — QA Engineer specializing in AI Testing and Automation Frameworks.'
 };
 
 export default function ContactPage() {
@@ -47,7 +47,7 @@ export default function ContactPage() {
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <div style={{ position: 'absolute', bottom: 24, background: 'white', padding: '10px 18px', borderRadius: 999, fontSize: '0.85rem', fontWeight: 600, boxShadow: 'var(--shadow)', color: 'var(--text)' }}>
-                Pakistan · NextGen HQ
+                Pakistan 🇵🇰
               </div>
             </div>
           </Reveal>

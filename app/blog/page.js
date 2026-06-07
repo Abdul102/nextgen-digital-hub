@@ -5,7 +5,7 @@ import { dbConnect } from '@/lib/mongodb';
 import Post from '@/models/Post';
 
 export const metadata = {
-  title: 'Blog & Articles | NextGen Digital Hub',
+  title: 'Blog | Abdul Rehman — QA Engineer',
   description: 'Insights on AI in QA, software testing trends, SaaS development, automation, and modern engineering practices.'
 };
 
