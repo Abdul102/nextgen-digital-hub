@@ -650,8 +650,9 @@ p { color: var(--text-soft); }
 .cta-banner h2 { color: #ffffff !important; margin-bottom: 16px; }
 .cta-banner p { color: rgba(255,255,255,0.8) !important; margin-bottom: 32px; max-width: 560px; margin-left: auto; margin-right: auto; }
 .cta-banner .btn-primary {
-  background: #ffffff;
-  color: var(--primary) !important;
+  background: #ffffff !important;
+  color: #4f46e5 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 /* ===========================================
@@ -1579,11 +1580,10 @@ p { color: var(--text-soft); }
    Light Theme — Comprehensive Fixes
    =========================================== */
 
-/* Ensure btn-primary always has white text */
-.btn-primary, [data-theme="dark"] .btn-primary,
-[data-theme="light"] .btn-primary {
-  color: #ffffff !important;
-}
+/* Ensure btn-primary always has white text (except inside cta-banner which overrides) */
+.btn-primary { color: #ffffff; }
+[data-theme="dark"] .btn-primary { color: #ffffff; }
+[data-theme="light"] .btn-primary { color: #ffffff; }
 
 /* btn-outline light mode */
 [data-theme="light"] .btn-outline {

@@ -46,7 +46,7 @@ export default function ContactPage() {
               <div className="map-pin">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
-              <div style={{ position: 'absolute', bottom: 24, background: 'white', padding: '10px 18px', borderRadius: 999, fontSize: '0.85rem', fontWeight: 600, boxShadow: 'var(--shadow)', color: 'var(--text)' }}>
+              <div style={{ position: 'absolute', bottom: 24, background: '#ffffff', padding: '10px 18px', borderRadius: 999, fontSize: '0.85rem', fontWeight: 600, boxShadow: '0 4px 16px rgba(0,0,0,0.15)', color: '#1e293b' }}>
                 Pakistan 🇵🇰
               </div>
             </div>
