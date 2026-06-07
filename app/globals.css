@@ -167,7 +167,7 @@ p { color: var(--text-soft); }
 }
 .btn-primary {
   background: var(--gradient-primary);
-  color: var(--white);
+  color: #ffffff;
   box-shadow: var(--shadow-lg);
 }
 .btn-primary:hover {
@@ -306,6 +306,96 @@ p { color: var(--text-soft); }
   opacity: 0.5;
   z-index: 0;
   animation: float 8s ease-in-out infinite;
+}
+
+/* ── Cinematic hero with full-bleed animation bg ── */
+.hero-cinematic {
+  background: #04060f !important;
+  min-height: 100vh;
+}
+.hero-cinematic::before,
+.hero-cinematic::after { display: none; }
+
+/* iframe fills full hero as background */
+.hero-bg-iframe {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  width: 72%;
+  height: 100%;
+  border: none;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.95;
+  object-fit: cover;
+  object-position: center center;
+}
+
+@media (max-width: 968px) {
+  .hero-bg-iframe {
+    width: 100%;
+    right: 0;
+    height: 60%;
+    top: auto;
+    bottom: 0;
+    opacity: 0.5;
+  }
+}
+
+/* dark gradient overlay: pitch black left → transparent right */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    #04060f 0%,
+    #04060f 35%,
+    rgba(4,6,15,0.85) 50%,
+    rgba(4,6,15,0.3) 70%,
+    rgba(4,6,15,0.05) 100%
+  );
+  pointer-events: none;
+}
+
+/* ensure hero text is bright white on dark bg */
+.hero-cinematic .hero-content h1,
+.hero-cinematic .hero-content .eyebrow,
+.hero-cinematic .hero-content .lead,
+.hero-cinematic .hero-content .stat-label {
+  color: rgba(255,255,255,0.95) !important;
+}
+.hero-cinematic .hero-content .lead {
+  color: rgba(200,210,230,0.88) !important;
+}
+.hero-cinematic .hero-stats .stat-label {
+  color: rgba(160,180,210,0.8) !important;
+}
+.hero-cinematic .btn-outline {
+  border-color: rgba(255,255,255,0.35) !important;
+  color: rgba(255,255,255,0.9) !important;
+}
+.hero-cinematic .btn-outline:hover {
+  background: rgba(255,255,255,0.08) !important;
+}
+
+@media (max-width: 968px) {
+  .hero-bg-iframe {
+    width: 100%;
+    height: 55%;
+    top: auto;
+    bottom: 0;
+    opacity: 0.5;
+  }
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      #04060f 0%,
+      #04060f 45%,
+      rgba(4,6,15,0.7) 65%,
+      rgba(4,6,15,0.2) 100%
+    );
+  }
 }
 .hero::before {
   width: 400px;
@@ -1484,3 +1574,166 @@ p { color: var(--text-soft); }
 /* Floating cards in hero — dark mode */
 [data-theme="dark"] .floating-card { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
 [data-theme="dark"] .floating-card .icon { background: rgba(79, 70, 229, 0.2); color: #a5b4fc; }
+
+/* ===========================================
+   Light Theme — Comprehensive Fixes
+   =========================================== */
+
+/* Ensure btn-primary always has white text */
+.btn-primary, [data-theme="dark"] .btn-primary,
+[data-theme="light"] .btn-primary {
+  color: #ffffff !important;
+}
+
+/* btn-outline light mode */
+[data-theme="light"] .btn-outline {
+  background: #ffffff;
+  color: var(--primary);
+  border-color: var(--border);
+}
+[data-theme="light"] .btn-outline:hover {
+  background: var(--gradient-soft);
+  border-color: var(--primary);
+}
+
+/* btn-ghost light mode */
+[data-theme="light"] .btn-ghost { color: var(--text); }
+
+/* Cards — light mode */
+[data-theme="light"] .card,
+[data-theme="light"] .testimonial,
+[data-theme="light"] .project-card,
+[data-theme="light"] .blog-card {
+  background: #ffffff;
+  border-color: var(--border);
+}
+[data-theme="light"] .card h3,
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4 { color: var(--text); }
+[data-theme="light"] p { color: var(--text-soft); }
+
+/* Project card buttons light mode */
+[data-theme="light"] .btn-card-outline {
+  background: #ffffff;
+  border-color: var(--border);
+  color: var(--text-soft);
+}
+[data-theme="light"] .btn-card-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Modal light mode */
+[data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.6); }
+
+/* Header light mode */
+[data-theme="light"] .header {
+  background: rgba(255,255,255,0.9);
+  border-bottom-color: var(--border);
+}
+[data-theme="light"] .header.scrolled {
+  background: rgba(255,255,255,0.98);
+  box-shadow: var(--shadow);
+}
+[data-theme="light"] .nav-links a { color: var(--text-soft); }
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .nav-links a.active { color: var(--primary); }
+
+/* Tech pills light mode */
+[data-theme="light"] .tech {
+  background: var(--bg-soft);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+}
+
+/* Skill tags light mode */
+[data-theme="light"] .skill-tag {
+  background: rgba(79,70,229,0.06);
+  border-color: rgba(79,70,229,0.18);
+  color: var(--primary);
+}
+
+/* Feature rows light */
+[data-theme="light"] .feature-row:hover { background: var(--bg-soft); }
+[data-theme="light"] .feature-row .icon {
+  background: var(--gradient-soft);
+  color: var(--primary);
+}
+
+/* Form inputs light */
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea,
+[data-theme="light"] .form-group select {
+  background: #ffffff;
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group textarea:focus { border-color: var(--primary); }
+
+/* Blog meta light */
+[data-theme="light"] .blog-tag {
+  background: rgba(79,70,229,0.08);
+  color: var(--primary);
+}
+
+/* CTA banner — always dark gradient, keep text white */
+.cta-banner h2, .cta-banner p { color: #ffffff; }
+.cta-banner p { color: rgba(255,255,255,0.8) !important; }
+
+/* Eyebrow tag light mode */
+[data-theme="light"] .eyebrow {
+  background: rgba(79,70,229,0.08);
+  color: var(--primary);
+  border-color: rgba(79,70,229,0.2);
+}
+
+/* Section subtitles */
+[data-theme="light"] .section-subtitle { color: var(--text-soft); }
+
+/* Timeline light mode */
+[data-theme="light"] .timeline-item { border-left-color: rgba(79,70,229,0.2); }
+[data-theme="light"] .timeline-year { color: var(--primary); }
+
+/* Read more link */
+[data-theme="light"] .read-more { color: var(--primary); }
+
+/* Avatar */
+[data-theme="light"] .avatar {
+  background: var(--gradient-primary);
+  color: #ffffff;
+}
+
+/* Quote */
+[data-theme="light"] .quote { color: var(--text); }
+
+/* Author role */
+[data-theme="light"] .author-role { color: var(--text-muted); }
+
+/* Hero cinematic always stays dark regardless of theme */
+.hero-cinematic,
+[data-theme="light"] .hero-cinematic {
+  background: #04060f !important;
+}
+[data-theme="light"] .hero-cinematic .hero-content h1,
+[data-theme="light"] .hero-cinematic .hero-content .eyebrow,
+[data-theme="light"] .hero-cinematic .hero-content .lead,
+[data-theme="light"] .hero-cinematic .hero-content .stat-label,
+[data-theme="light"] .hero-cinematic .hero-stats .stat-label {
+  color: rgba(255,255,255,0.95) !important;
+}
+[data-theme="light"] .hero-cinematic .eyebrow {
+  background: rgba(255,255,255,0.08) !important;
+  color: rgba(255,255,255,0.85) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+}
+[data-theme="light"] .hero-cinematic .btn-outline {
+  border-color: rgba(255,255,255,0.35) !important;
+  color: rgba(255,255,255,0.9) !important;
+  background: rgba(255,255,255,0.05) !important;
+}
+[data-theme="light"] .hero-cinematic .btn-outline:hover {
+  background: rgba(255,255,255,0.12) !important;
+}

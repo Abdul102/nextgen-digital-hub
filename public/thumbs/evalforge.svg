@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" width="560" height="320">
+  <rect width="560" height="320" fill="#0f172a" rx="12"/>
+  <rect width="560" height="40" fill="#1e293b" rx="12"/>
+  <rect y="28" width="560" height="12" fill="#1e293b"/>
+  <circle cx="20" cy="20" r="6" fill="#ef4444" opacity=".8"/>
+  <circle cx="38" cy="20" r="6" fill="#f59e0b" opacity=".8"/>
+  <circle cx="56" cy="20" r="6" fill="#22c55e" opacity=".8"/>
+  <text x="280" y="25" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">EvalForge — LLM Evaluation Platform</text>
+  <!-- stat cards -->
+  <rect x="12" y="52" width="124" height="52" rx="8" fill="#1e293b"/>
+  <text x="74" y="73" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="18" font-weight="bold">96.2%</text>
+  <text x="74" y="90" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Faithfulness</text>
+  <rect x="144" y="52" width="124" height="52" rx="8" fill="#1e293b"/>
+  <text x="206" y="73" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="18" font-weight="bold">94.8%</text>
+  <text x="206" y="90" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Relevance</text>
+  <rect x="276" y="52" width="124" height="52" rx="8" fill="#1e293b"/>
+  <text x="338" y="73" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="18" font-weight="bold">87%</text>
+  <text x="338" y="90" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Eval Coverage</text>
+  <rect x="408" y="52" width="140" height="52" rx="8" fill="#1e293b"/>
+  <text x="478" y="73" text-anchor="middle" fill="#8b5cf6" font-family="monospace" font-size="18" font-weight="bold">0</text>
+  <text x="478" y="90" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Hallucinations</text>
+  <!-- metric bars -->
+  <rect x="12" y="116" width="260" height="148" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="22" y="132" fill="#94a3b8" font-family="monospace" font-size="8" font-weight="bold">EVALUATION METRICS</text>
+  <!-- faithfulness -->
+  <text x="22" y="150" fill="#e2e8f0" font-family="monospace" font-size="8">Faithfulness</text>
+  <rect x="22" y="154" width="200" height="7" rx="3" fill="#334155"/>
+  <rect x="22" y="154" width="192" height="7" rx="3" fill="#22c55e"/>
+  <text x="226" y="161" fill="#22c55e" font-family="monospace" font-size="8">96%</text>
+  <!-- relevance -->
+  <text x="22" y="175" fill="#e2e8f0" font-family="monospace" font-size="8">Answer Relevance</text>
+  <rect x="22" y="179" width="200" height="7" rx="3" fill="#334155"/>
+  <rect x="22" y="179" width="189" height="7" rx="3" fill="#22c55e"/>
+  <text x="226" y="186" fill="#22c55e" font-family="monospace" font-size="8">94%</text>
+  <!-- context -->
+  <text x="22" y="200" fill="#e2e8f0" font-family="monospace" font-size="8">Context Precision</text>
+  <rect x="22" y="204" width="200" height="7" rx="3" fill="#334155"/>
+  <rect x="22" y="204" width="178" height="7" rx="3" fill="#22c55e"/>
+  <text x="226" y="211" fill="#22c55e" font-family="monospace" font-size="8">89%</text>
+  <!-- toxicity -->
+  <text x="22" y="225" fill="#e2e8f0" font-family="monospace" font-size="8">Toxicity Rate</text>
+  <rect x="22" y="229" width="200" height="7" rx="3" fill="#334155"/>
+  <rect x="22" y="229" width="4" height="7" rx="3" fill="#22c55e"/>
+  <text x="226" y="236" fill="#22c55e" font-family="monospace" font-size="8">2%</text>
+  <!-- hallucination -->
+  <text x="22" y="250" fill="#e2e8f0" font-family="monospace" font-size="8">Hallucination Rate</text>
+  <rect x="22" y="254" width="200" height="7" rx="3" fill="#334155"/>
+  <rect x="22" y="254" width="2" height="7" rx="3" fill="#22c55e"/>
+  <text x="226" y="261" fill="#22c55e" font-family="monospace" font-size="8">1%</text>
+  <!-- A/B comparison -->
+  <rect x="282" y="116" width="266" height="148" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="292" y="132" fill="#94a3b8" font-family="monospace" font-size="8" font-weight="bold">PROMPT A/B COMPARISON</text>
+  <rect x="292" y="138" width="116" height="60" rx="6" fill="#0f172a" stroke="#4f46e5" stroke-width="1"/>
+  <text x="350" y="152" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="7">Prompt A (Current)</text>
+  <text x="296" y="165" fill="#94a3b8" font-family="monospace" font-size="7">"Answer strictly</text>
+  <text x="296" y="177" fill="#94a3b8" font-family="monospace" font-size="7">from context..."</text>
+  <text x="350" y="193" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="10" font-weight="bold">96.2%</text>
+  <rect x="420" y="138" width="116" height="60" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="478" y="152" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="7">Prompt B (Candidate)</text>
+  <text x="424" y="165" fill="#94a3b8" font-family="monospace" font-size="7">"Use docs only,</text>
+  <text x="424" y="177" fill="#94a3b8" font-family="monospace" font-size="7">cite sources..."</text>
+  <text x="478" y="193" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="10" font-weight="bold">91.4%</text>
+  <text x="415" y="216" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="8">✓ Prompt A wins — shipping</text>
+  <!-- test table -->
+  <text x="292" y="232" fill="#64748b" font-family="monospace" font-size="7">QUESTION</text>
+  <text x="430" y="232" fill="#64748b" font-family="monospace" font-size="7">FAITH.</text>
+  <text x="476" y="232" fill="#64748b" font-family="monospace" font-size="7">VERDICT</text>
+  <text x="292" y="248" fill="#e2e8f0" font-family="monospace" font-size="7">Refund policy?</text>
+  <text x="430" y="248" fill="#22c55e" font-family="monospace" font-size="7">98%</text>
+  <rect x="474" y="240" width="30" height="11" rx="5" fill="rgba(34,197,94,.2)"/><text x="489" y="249" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="7">PASS</text>
+  <text x="292" y="262" fill="#e2e8f0" font-family="monospace" font-size="7">SLA guarantees?</text>
+  <text x="430" y="262" fill="#f59e0b" font-family="monospace" font-size="7">72%</text>
+  <rect x="468" y="254" width="42" height="11" rx="5" fill="rgba(245,158,11,.2)"/><text x="489" y="263" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="7">REVIEW</text>
+</svg>

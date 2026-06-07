@@ -7,11 +7,11 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <Link href="/" className="logo">
-              <span className="logo-mark">N</span>
-              <span style={{ color: 'white' }}>NextGen Digital Hub</span>
+              <span className="logo-mark">AR</span>
+              <span style={{ color: 'white' }}>Abdul <span style={{ background: 'linear-gradient(135deg,#4f46e5,#06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Rehman</span></span>
             </Link>
             <p className="footer-about">
-              Premium digital services for ambitious teams. AI, QA, SaaS, Web, Mobile and Cloud — engineered for outcomes.
+              Software Quality Engineer specializing in AI Testing, QA Automation, and CI/CD pipelines. Helping teams ship with confidence.
             </p>
             <div className="socials">
               <a href="#" className="social-icon" aria-label="Twitter">
@@ -32,34 +32,35 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4>Company</h4>
+            <h4>Navigation</h4>
             <ul className="footer-links">
-              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/about">About Me</Link></li>
               <li><Link href="/projects">Projects</Link></li>
               <li><Link href="/blog">Blog</Link></li>
               <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
           <div>
-            <h4>Services</h4>
+            <h4>Specializations</h4>
             <ul className="footer-links">
-              <li><Link href="/services">AI Solutions</Link></li>
-              <li><Link href="/services">QA & Testing</Link></li>
-              <li><Link href="/services">Web Development</Link></li>
-              <li><Link href="/services">SaaS Development</Link></li>
+              <li><Link href="/services">QA Automation</Link></li>
+              <li><Link href="/services">AI Agent Testing</Link></li>
+              <li><Link href="/services">API & Performance Testing</Link></li>
+              <li><Link href="/services">CI/CD Integration</Link></li>
             </ul>
           </div>
           <div>
             <h4>Get in Touch</h4>
             <ul className="footer-links">
-              <li>myjmail92@gmail.com</li>
-              <li>+92 321 1464482</li>
-              <li>Pakistan</li>
+              <li><a href="mailto:abdulrehmanzahoor10@gmail.com" style={{ color: 'inherit' }}>abdulrehmanzahoor10@gmail.com</a></li>
+              <li><a href="mailto:abdul.rehman@iclosed.io" style={{ color: 'inherit' }}>abdul.rehman@iclosed.io</a></li>
+              <li>Pakistan 🇵🇰</li>
+              <li><a href="https://abdulportfolios.netlify.app/about" target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>abdulportfolios.netlify.app</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          &copy; 2026 NextGen Digital Hub. All rights reserved. Built with care.
+          &copy; 2026 Abdul Rehman. All rights reserved. Built with ❤️
         </div>
       </div>
     </footer>

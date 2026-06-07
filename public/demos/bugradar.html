@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BugRadar — AI Bug Triage Dashboard</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .header{background:#1e293b;border-bottom:1px solid #334155;padding:12px 20px;display:flex;align-items:center;gap:12px}
+  .logo{background:linear-gradient(135deg,#ec4899,#f59e0b);color:white;font-weight:700;padding:6px 12px;border-radius:8px;font-size:13px}
+  .header h1{font-size:15px;color:#94a3b8}
+  .badge{background:#8b5cf620;color:#8b5cf6;border:1px solid #8b5cf640;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-left:auto}
+  .main{padding:20px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .stat-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px}
+  .stat-val{font-size:22px;font-weight:700;margin-bottom:4px}
+  .stat-lbl{font-size:11px;color:#64748b}
+  .green{color:#22c55e}.red{color:#ef4444}.yellow{color:#f59e0b}.purple{color:#8b5cf6}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:20px;margin-bottom:16px}
+  .card-title{font-size:14px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+  .triage-btn{background:linear-gradient(135deg,#ec4899,#f59e0b);color:white;border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+  .bug-card{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:14px;margin-bottom:8px;position:relative}
+  .bug-title{font-size:13px;font-weight:500;margin-bottom:6px}
+  .bug-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .pill{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600}
+  .p-critical{background:#ef444420;color:#ef4444;border:1px solid #ef444440}
+  .p-high{background:#f59e0b20;color:#f59e0b;border:1px solid #f59e0b40}
+  .p-medium{background:#06b6d420;color:#06b6d4;border:1px solid #06b6d440}
+  .p-low{background:#22c55e20;color:#22c55e;border:1px solid #22c55e40}
+  .p-comp{background:#8b5cf620;color:#8b5cf6;border:1px solid #8b5cf640}
+  .p-dup{background:#64748b20;color:#94a3b8;border:1px solid #64748b40}
+  .ai-badge{background:linear-gradient(135deg,#ec4899,#f59e0b);color:white;padding:1px 7px;border-radius:10px;font-size:9px;font-weight:700;margin-left:auto}
+  .triage-row{opacity:0;transform:translateY(10px);transition:all .4s ease}
+  .triage-row.visible{opacity:1;transform:translateY(0)}
+  textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:10px;font-size:13px;color:#e2e8f0;font-family:'Segoe UI',sans-serif;resize:vertical;margin-bottom:8px}
+  .score-row{display:flex;align-items:center;gap:8px;font-size:12px;margin-top:6px}
+  .score-bar{flex:1;height:6px;background:#334155;border-radius:10px;overflow:hidden}
+  .score-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,#ec4899,#f59e0b)}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">BR</div>
+  <h1>BugRadar — AI Bug Triage Dashboard</h1>
+  <div class="badge">GPT-4o Powered</div>
+</div>
+
+<div class="main">
+  <div class="stats">
+    <div class="stat-card"><div class="stat-val red" id="inboxCount">7</div><div class="stat-lbl">Incoming Bugs</div></div>
+    <div class="stat-card"><div class="stat-val green">93%</div><div class="stat-lbl">Triage Accuracy</div></div>
+    <div class="stat-card"><div class="stat-val yellow">3</div><div class="stat-lbl">Duplicates Found</div></div>
+    <div class="stat-card"><div class="stat-val purple">20 min</div><div class="stat-lbl">Daily Triage Time</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="card">
+      <div class="card-title">
+        Incoming Bug Queue
+        <button class="triage-btn" onclick="triageAll()">🤖 AI Triage All</button>
+      </div>
+      <div id="bugQueue">
+        <div class="bug-card triage-row visible" id="bug1">
+          <div class="bug-title">Login button unresponsive after password reset</div>
+          <div class="bug-meta">
+            <span class="pill p-critical">CRITICAL</span>
+            <span class="pill p-comp">Auth</span>
+            <span class="ai-badge">AI ✓</span>
+          </div>
+        </div>
+        <div class="bug-card triage-row visible" id="bug2">
+          <div class="bug-title">CSV export hangs on large datasets (&gt;10k rows)</div>
+          <div class="bug-meta">
+            <span class="pill p-high">HIGH</span>
+            <span class="pill p-comp">Reports</span>
+            <span class="ai-badge">AI ✓</span>
+          </div>
+        </div>
+        <div class="bug-card triage-row visible" id="bug3">
+          <div class="bug-title">Dashboard doesn't load — same as #1032 I think</div>
+          <div class="bug-meta">
+            <span class="pill p-dup">DUPLICATE</span>
+            <span class="ai-badge">AI ✓</span>
+          </div>
+        </div>
+        <div class="bug-card triage-row visible" id="bug4">
+          <div class="bug-title">Mobile nav menu overlaps content on iPhone 14</div>
+          <div class="bug-meta">
+            <span class="pill p-medium">MEDIUM</span>
+            <span class="pill p-comp">UI/Mobile</span>
+            <span class="ai-badge">AI ✓</span>
+          </div>
+        </div>
+        <div class="bug-card triage-row visible" id="bug5">
+          <div class="bug-title">Email template editor loses formatting on save</div>
+          <div class="bug-meta">
+            <span class="pill p-high">HIGH</span>
+            <span class="pill p-comp">Emails</span>
+            <span class="ai-badge">AI ✓</span>
+          </div>
+        </div>
+        <div class="bug-card triage-row" id="bug6">
+          <div class="bug-title">Pipeline drag-and-drop breaks on Firefox 124</div>
+          <div class="bug-meta">
+            <span style="font-size:11px;color:#64748b">⏳ Pending triage...</span>
+          </div>
+        </div>
+        <div class="bug-card triage-row" id="bug7">
+          <div class="bug-title">Contact search returns wrong results after filter</div>
+          <div class="bug-meta">
+            <span style="font-size:11px;color:#64748b">⏳ Pending triage...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Paste New Bug Report</div>
+      <textarea id="bugInput" rows="4" placeholder="Paste bug description here...
+e.g. 'The submit button disappears after clicking once on the deals page...'"></textarea>
+      <button class="triage-btn" onclick="triageSingle()" style="width:100%;margin-bottom:14px">🤖 Classify This Bug</button>
+      <div id="singleResult" style="display:none;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:14px">
+        <div style="font-size:12px;font-weight:600;margin-bottom:10px;color:#ec4899">AI Classification Result</div>
+        <div id="classResult"></div>
+      </div>
+
+      <div style="margin-top:16px">
+        <div style="font-size:12px;color:#64748b;margin-bottom:10px">Bug Type Distribution (this week)</div>
+        <div class="score-row"><span style="width:100px">UI / UX</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span>40%</span></div>
+        <div class="score-row"><span style="width:100px">API / Backend</span><div class="score-bar"><div class="score-fill" style="width:28%"></div></div><span>28%</span></div>
+        <div class="score-row"><span style="width:100px">Performance</span><div class="score-bar"><div class="score-fill" style="width:18%"></div></div><span>18%</span></div>
+        <div class="score-row"><span style="width:100px">Security</span><div class="score-bar"><div class="score-fill" style="width:8%"></div></div><span>8%</span></div>
+        <div class="score-row"><span style="width:100px">Duplicate</span><div class="score-bar"><div class="score-fill" style="width:6%"></div></div><span>6%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function triageAll() {
+  setTimeout(()=>{
+    const b6 = document.getElementById('bug6');
+    b6.innerHTML = '<div class="bug-title">Pipeline drag-and-drop breaks on Firefox 124</div><div class="bug-meta"><span class="pill p-high">HIGH</span><span class="pill p-comp">Browser Compat</span><span class="ai-badge">AI ✓</span></div>';
+    b6.classList.add('visible');
+  }, 900);
+  setTimeout(()=>{
+    const b7 = document.getElementById('bug7');
+    b7.innerHTML = '<div class="bug-title">Contact search returns wrong results after filter</div><div class="bug-meta"><span class="pill p-high">HIGH</span><span class="pill p-comp">CRM / Search</span><span class="ai-badge">AI ✓</span></div>';
+    b7.classList.add('visible');
+    document.getElementById('inboxCount').textContent='0';
+    document.getElementById('inboxCount').className='stat-val green';
+  }, 1700);
+}
+function triageSingle() {
+  const input = document.getElementById('bugInput').value.trim();
+  if(!input) { alert('Please paste a bug description first'); return; }
+  const res = document.getElementById('singleResult');
+  const cls = document.getElementById('classResult');
+  res.style.display='block';
+  cls.innerHTML='<div style="color:#64748b;font-size:12px">🤖 Classifying...</div>';
+  setTimeout(()=>{
+    cls.innerHTML = `
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+        <span class="pill p-high">HIGH Priority</span>
+        <span class="pill p-comp">UI / Frontend</span>
+      </div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6">
+        <strong style="color:#e2e8f0">Suggested assignee:</strong> Frontend Team<br/>
+        <strong style="color:#e2e8f0">Similar bugs:</strong> #1089, #1021<br/>
+        <strong style="color:#e2e8f0">Confidence:</strong> 94%<br/>
+        <strong style="color:#e2e8f0">Jira ticket:</strong> <span style="color:#06b6d4">AR-1055 (auto-created)</span>
+      </div>`;
+  }, 1200);
+}
+</script>
+</body>
+</html>

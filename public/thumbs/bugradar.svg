@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" width="560" height="320">
+  <rect width="560" height="320" fill="#0f172a" rx="12"/>
+  <rect width="560" height="40" fill="#1e293b" rx="12"/>
+  <rect y="28" width="560" height="12" fill="#1e293b"/>
+  <circle cx="20" cy="20" r="6" fill="#ef4444" opacity=".8"/>
+  <circle cx="38" cy="20" r="6" fill="#f59e0b" opacity=".8"/>
+  <circle cx="56" cy="20" r="6" fill="#22c55e" opacity=".8"/>
+  <text x="280" y="25" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">BugRadar — AI Bug Triage Dashboard · GPT-4o</text>
+  <!-- stats -->
+  <rect x="12" y="52" width="120" height="50" rx="8" fill="#1e293b"/>
+  <text x="72" y="72" text-anchor="middle" fill="#ef4444" font-family="monospace" font-size="18" font-weight="bold">7</text>
+  <text x="72" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Incoming Bugs</text>
+  <rect x="140" y="52" width="120" height="50" rx="8" fill="#1e293b"/>
+  <text x="200" y="72" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="18" font-weight="bold">93%</text>
+  <text x="200" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">AI Accuracy</text>
+  <rect x="268" y="52" width="120" height="50" rx="8" fill="#1e293b"/>
+  <text x="328" y="72" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="18" font-weight="bold">3</text>
+  <text x="328" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Duplicates Found</text>
+  <rect x="396" y="52" width="152" height="50" rx="8" fill="#1e293b"/>
+  <text x="472" y="72" text-anchor="middle" fill="#8b5cf6" font-family="monospace" font-size="18" font-weight="bold">20 min</text>
+  <text x="472" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Daily Triage</text>
+  <!-- bug queue -->
+  <rect x="12" y="114" width="290" height="168" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="22" y="130" fill="#94a3b8" font-family="monospace" font-size="8" font-weight="bold">BUG QUEUE — AI CLASSIFIED</text>
+  <!-- bug 1 -->
+  <rect x="20" y="136" width="274" height="24" rx="5" fill="#0f172a"/>
+  <text x="28" y="151" fill="#e2e8f0" font-family="monospace" font-size="8">Login button unresponsive after reset</text>
+  <rect x="240" y="138" width="40" height="14" rx="6" fill="rgba(239,68,68,.2)"/><text x="260" y="149" text-anchor="middle" fill="#ef4444" font-family="monospace" font-size="7">CRITICAL</text>
+  <!-- bug 2 -->
+  <rect x="20" y="164" width="274" height="24" rx="5" fill="transparent"/>
+  <text x="28" y="179" fill="#e2e8f0" font-family="monospace" font-size="8">CSV export hangs on large datasets</text>
+  <rect x="248" y="166" width="30" height="14" rx="6" fill="rgba(245,158,11,.2)"/><text x="263" y="177" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="7">HIGH</text>
+  <!-- bug 3 - duplicate -->
+  <rect x="20" y="192" width="274" height="24" rx="5" fill="#0f172a"/>
+  <text x="28" y="207" fill="#94a3b8" font-family="monospace" font-size="8">Dashboard doesn't load — same as #1032</text>
+  <rect x="240" y="194" width="46" height="14" rx="6" fill="rgba(100,116,139,.2)"/><text x="263" y="205" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="7">DUPLICATE</text>
+  <!-- bug 4 -->
+  <rect x="20" y="220" width="274" height="24" rx="5" fill="transparent"/>
+  <text x="28" y="235" fill="#e2e8f0" font-family="monospace" font-size="8">Mobile nav overlaps on iPhone 14</text>
+  <rect x="242" y="222" width="44" height="14" rx="6" fill="rgba(6,182,212,.2)"/><text x="264" y="233" text-anchor="middle" fill="#06b6d4" font-family="monospace" font-size="7">MEDIUM</text>
+  <!-- bug 5 -->
+  <rect x="20" y="248" width="274" height="24" rx="5" fill="#0f172a"/>
+  <text x="28" y="263" fill="#e2e8f0" font-family="monospace" font-size="8">Email template loses formatting on save</text>
+  <rect x="248" y="250" width="30" height="14" rx="6" fill="rgba(245,158,11,.2)"/><text x="263" y="261" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="7">HIGH</text>
+  <!-- AI classifier panel -->
+  <rect x="312" y="114" width="236" height="168" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="322" y="130" fill="#94a3b8" font-family="monospace" font-size="8" font-weight="bold">AI CLASSIFICATION RESULT</text>
+  <rect x="320" y="136" width="220" height="60" rx="6" fill="#0f172a"/>
+  <text x="330" y="150" fill="#64748b" font-family="monospace" font-size="7">Input:</text>
+  <text x="330" y="162" fill="#e2e8f0" font-family="monospace" font-size="7">"Login button disappears after</text>
+  <text x="330" y="174" fill="#e2e8f0" font-family="monospace" font-size="7">clicking once on deals page..."</text>
+  <text x="330" y="186" fill="#64748b" font-family="monospace" font-size="7">Confidence: 94%</text>
+  <rect x="320" y="202" width="220" height="72" rx="6" fill="rgba(239,68,68,.06)" stroke="#ef4444" stroke-width="1"/>
+  <text x="330" y="218" fill="#ef4444" font-family="monospace" font-size="8" font-weight="bold">CRITICAL · UI / Frontend</text>
+  <text x="330" y="232" fill="#94a3b8" font-family="monospace" font-size="7">Assignee: Frontend Team</text>
+  <text x="330" y="244" fill="#94a3b8" font-family="monospace" font-size="7">Similar: #1089, #1021</text>
+  <text x="330" y="256" fill="#06b6d4" font-family="monospace" font-size="7">JIRA AR-1055 auto-created ✓</text>
+  <text x="330" y="268" fill="#64748b" font-family="monospace" font-size="7">Slack #qa-alerts notified ✓</text>
+  <!-- distribution bars -->
+  <text x="322" y="296" fill="#64748b" font-family="monospace" font-size="7">UI/UX 40%</text>
+  <rect x="370" y="288" width="80" height="6" rx="3" fill="#334155"/>
+  <rect x="370" y="288" width="32" height="6" rx="3" fill="#8b5cf6"/>
+  <text x="456" y="296" fill="#64748b" font-family="monospace" font-size="7">API 28%</text>
+  <rect x="484" y="288" width="56" height="6" rx="3" fill="#334155"/>
+  <rect x="484" y="288" width="16" height="6" rx="3" fill="#ec4899"/>
+</svg>

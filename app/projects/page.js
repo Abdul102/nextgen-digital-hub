@@ -4,93 +4,105 @@ import Reveal from '../components/Reveal';
 import ProjectsList from './ProjectsList';
 
 export const metadata = {
-  title: 'Projects & Portfolio | NextGen Digital Hub',
-  description: 'Portfolio of SaaS platforms, AI tools, QA automation systems, and modern web apps shipped for global clients.'
+  title: "Projects & Portfolio | Abdul Rehman — QA Engineer",
+  description: 'Portfolio of QA automation frameworks, AI testing tools, and web apps built by Abdul Rehman — showcasing real engineering across automation, AI, and full-stack development.'
 };
 
 const PROJECTS = [
   {
-    name: 'PivotIQ',
-    cat: 'SaaS Platform',
-    desc: 'Multi-tenant analytics platform for B2B sales teams. Real-time dashboards, AI insights, Stripe billing.',
-    stack: ['Next.js', 'PostgreSQL', 'Stripe', 'AWS'],
+    name: 'AI QA Agent',
+    cat: 'AI Testing',
+    desc: 'Playwright + Groq powered QA Automation platform — an AI agent that writes, runs, and fixes tests autonomously.',
+    stack: ['Playwright', 'Groq', 'Python', 'AI Agent'],
     thumb: 'thumb-1',
-    challenge: 'Sales teams were drowning in spreadsheets, with no real-time visibility into pipeline health or rep performance. The client needed an analytics platform that scaled across hundreds of accounts without sacrificing speed.',
-    solution: 'We built a multi-tenant SaaS on Next.js + PostgreSQL with row-level security for tenant isolation. Real-time dashboards used WebSockets, and an LLM-powered insights engine surfaces anomalies and recommendations in plain English.',
+    previewImg: '/thumbs/ai-qa-agent.svg',
+    demoUrl: 'https://comfy-genie-e456b6.netlify.app/',
+    challenge: 'Manual test writing is slow and automation suites require constant maintenance. The goal was to build an AI agent that understands the application, generates test cases, runs them, and self-heals when they break — all without human intervention.',
+    solution: 'Built an AI QA Agent powered by Playwright for browser automation and Groq (LLaMA 3) for intelligent reasoning. The agent analyzes page structure, generates meaningful test scenarios, executes them in real browsers, and uses AI to debug and fix failing tests automatically. Deployed as an interactive demo on Netlify.',
     results: [
-      { value: '4.2x', label: 'Faster reporting' },
-      { value: '$1.2M', label: 'ARR in year 1' },
-      { value: '99.9%', label: 'Uptime' }
+      { value: '10x', label: 'Faster test authoring' },
+      { value: '0', label: 'Manual locator fixes' },
+      { value: 'AI', label: 'Self-healing tests' }
     ]
   },
   {
-    name: 'LumenAI',
-    cat: 'AI Tool',
-    desc: 'HIPAA-compliant AI assistant for clinicians. RAG over medical knowledge bases with verified citations.',
-    stack: ['Python', 'LangChain', 'OpenAI', 'Pinecone'],
-    thumb: 'thumb-2',
-    challenge: 'Clinicians spend hours searching medical literature for evidence-based answers. Existing AI tools hallucinated and lacked citations — a non-starter in healthcare.',
-    solution: 'Production-grade RAG architecture: medical knowledge bases vectorized in Pinecone, retrieval with reranking, and answers strictly grounded in retrieved documents with verifiable citations. Full HIPAA compliance and audit logs.',
-    results: [
-      { value: '70%', label: 'Time saved per query' },
-      { value: '0', label: 'Hallucinated citations' },
-      { value: '12k+', label: 'Daily queries' }
-    ]
-  },
-  {
-    name: 'TestForge',
+    name: 'AutoGuard',
     cat: 'QA Automation',
-    desc: 'End-to-end testing framework with self-healing locators, parallel execution, CI/CD integration.',
-    stack: ['Playwright', 'TypeScript', 'GitHub Actions'],
+    desc: 'Self-healing E2E test framework with AI-driven locator recovery, parallel sharding, and Slack/Jira alerts.',
+    stack: ['Playwright', 'TypeScript', 'GitHub Actions', 'OpenAI'],
+    thumb: 'thumb-2',
+    previewImg: '/thumbs/autoguard.svg',
+    demoUrl: '/demos/autoguard.html',
+    challenge: 'A fast-growing SaaS had a brittle Selenium suite — selectors broke every sprint, test runtime was 4+ hours, and the QA team spent more time fixing tests than finding bugs.',
+    solution: 'Rebuilt the suite in Playwright with an AI-powered self-healing layer: when a locator fails, the system uses GPT vision to locate the element by visual context. Parallel sharding across 20 GitHub Actions runners cut runtime to 11 minutes. Slack notifications include failure screenshots and one-click Jira ticket creation.',
+    results: [
+      { value: '11 min', label: 'Full suite runtime' },
+      { value: '94%', label: 'Fewer flaky failures' },
+      { value: '6x', label: 'Faster releases' }
+    ]
+  },
+  {
+    name: 'EvalForge',
+    cat: 'LLM Evaluation',
+    desc: 'LLM evaluation platform for AI agents — tracks hallucination rate, response quality, and prompt regression in CI/CD.',
+    stack: ['Python', 'DeepEval', 'LangSmith', 'Promptfoo', 'React'],
     thumb: 'thumb-3',
-    challenge: 'A growing SaaS product had a flaky test suite — every release required manual triage. Test runtime had grown to 4+ hours, blocking deployments.',
-    solution: 'Rebuilt the suite in Playwright with self-healing locators (AI-driven element discovery when selectors break), parallel sharding across 16 GitHub Actions runners, and smart retries that distinguish real failures from infra flakes.',
+    previewImg: '/thumbs/evalforge.svg',
+    demoUrl: '/demos/evalforge.html',
+    challenge: 'An AI startup was shipping LLM-powered features with no structured way to measure quality. Hallucinations were slipping into production and prompt changes had unpredictable effects on output quality.',
+    solution: 'Built a comprehensive eval platform integrating DeepEval and LangSmith with a custom React dashboard. Each CI/CD push runs automated evals scoring faithfulness, relevance, and toxicity. Regressions block deploys. A/B prompt comparison lets the team test prompts before shipping.',
     results: [
-      { value: '12 min', label: 'Full suite runtime' },
-      { value: '60%', label: 'Fewer flakes' },
-      { value: '5x', label: 'Faster releases' }
+      { value: '0', label: 'Hallucinations in prod' },
+      { value: '87%', label: 'Eval coverage' },
+      { value: '3x', label: 'Faster prompt iteration' }
     ]
   },
   {
-    name: 'FlowOps',
-    cat: 'Web App',
-    desc: 'Drag-and-drop workflow builder for ops teams. Custom triggers, integrations, audit logs.',
-    stack: ['React', 'Node.js', 'Redis', 'Docker'],
+    name: 'APIWatch',
+    cat: 'API Testing',
+    desc: 'Contract testing dashboard for microservices — Pact-based consumer/provider tests with live compatibility matrix.',
+    stack: ['Postman', 'Pact', 'Node.js', 'Jenkins', 'Docker'],
     thumb: 'thumb-4',
-    challenge: 'An ops team was stitching together Zapier, scripts, and spreadsheets to coordinate cross-team workflows. Lack of audit trail and brittleness was causing missed SLAs.',
-    solution: 'A drag-and-drop visual workflow builder with conditional branching, custom triggers, and 40+ pre-built integrations. Backed by Redis queues for retries and a complete audit log for SOC 2 compliance.',
+    previewImg: '/thumbs/apiwatch.svg',
+    demoUrl: '/demos/apiwatch.html',
+    challenge: 'A microservices team was breaking integrations silently — APIs changed without consumers knowing. Late-discovery bugs in staging cost the team days of debugging before each release.',
+    solution: 'Implemented Pact contract testing across 18 microservices with an automated broker that blocks provider deploys when consumer contracts fail. A live matrix dashboard shows every service\'s compatibility. Postman collections run smoke tests on every deployment.',
     results: [
-      { value: '85%', label: 'Less manual work' },
-      { value: '40+', label: 'Integrations' },
-      { value: 'SOC 2', label: 'Type II compliant' }
+      { value: '18', label: 'Services covered' },
+      { value: '100%', label: 'Breaking changes caught' },
+      { value: '2 days', label: 'Saved per release' }
     ]
   },
   {
-    name: 'Skylane',
-    cat: 'SaaS Platform',
-    desc: 'Fleet tracking and route optimization for mid-market logistics companies.',
-    stack: ['React Native', 'GraphQL', 'MapBox', 'GCP'],
+    name: 'LoadSurge',
+    cat: 'Performance Testing',
+    desc: 'Automated load testing pipeline — k6 + JMeter suites in CI with p95 threshold gates and Grafana dashboards.',
+    stack: ['k6', 'JMeter', 'Grafana', 'InfluxDB', 'GitHub Actions'],
     thumb: 'thumb-5',
-    challenge: 'Mid-market logistics carriers couldn\'t afford enterprise TMS systems but were losing margin to inefficient routing and lack of real-time fleet visibility.',
-    solution: 'Mobile + web platform with live GPS tracking, ML-driven route optimization (fuel/time/mileage), and customer-facing tracking pages. Built for offline-first usage on driver mobile apps.',
+    previewImg: '/thumbs/loadsurge.svg',
+    demoUrl: '/demos/loadsurge.html',
+    challenge: 'A high-traffic SaaS had no performance regression detection — load issues were discovered in production after a viral spike caused a 3-hour outage.',
+    solution: 'Built dual load testing pipelines: k6 for synthetic API load (up to 10k VUs) and JMeter for user journey simulation. Results stream to Grafana + InfluxDB in real time. CI gates block merges when p95 latency exceeds 200ms — catching regressions before production.',
     results: [
-      { value: '18%', label: 'Fuel savings' },
-      { value: '2.4x', label: 'On-time deliveries' },
-      { value: '500+', label: 'Drivers onboarded' }
+      { value: 'p95 <200ms', label: 'Enforced per PR' },
+      { value: '10k VUs', label: 'Peak load tested' },
+      { value: '0', label: 'Prod perf incidents' }
     ]
   },
   {
-    name: 'CodeMuse',
-    cat: 'AI Tool',
-    desc: 'VSCode + GitHub bot that reviews PRs using LLMs. Security, style, and architecture feedback in seconds.',
-    stack: ['TypeScript', 'OpenAI', 'GitHub API'],
+    name: 'BugRadar',
+    cat: 'AI Bug Triage',
+    desc: 'AI-powered bug triage dashboard — GPT-4 classifies, deduplicates, and prioritizes incoming bug reports automatically.',
+    stack: ['React', 'Node.js', 'OpenAI GPT-4', 'MongoDB', 'Jira API'],
     thumb: 'thumb-6',
-    challenge: 'Engineering teams wanted faster code reviews but human reviewers were a bottleneck. Existing AI tools missed context and produced generic suggestions.',
-    solution: 'A GitHub App that ingests PR diff + relevant repo files, runs targeted LLM reviews (security, style, architecture, testing), and posts inline comments. Customizable rule packs per team.',
+    previewImg: '/thumbs/bugradar.svg',
+    demoUrl: '/demos/bugradar.html',
+    challenge: 'A QA team was receiving 200+ bug reports weekly. Manual triage took 3+ hours per day, duplicates were common, and critical bugs sometimes got buried under noise.',
+    solution: 'Dashboard that uses GPT-4 to auto-classify incoming bugs by severity, component, and type. Semantic deduplication clusters similar reports. Jira tickets auto-created with suggested assignees and priority. QA team now triages in 20 minutes instead of 3 hours.',
     results: [
-      { value: '3x', label: 'Faster review cycle' },
-      { value: '40%', label: 'More issues caught' },
-      { value: '50k+', label: 'Reviews shipped' }
+      { value: '93%', label: 'Triage accuracy' },
+      { value: '20 min', label: 'Daily triage time' },
+      { value: '40%', label: 'Duplicate reduction' }
     ]
   }
 ];
@@ -101,9 +113,9 @@ export default function ProjectsPage() {
       <section className="page-header">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Our work</span>
-            <h1>Projects We're <span className="gradient-text">Proud Of</span></h1>
-            <p>A selection of platforms, tools, and systems we've shipped. Click any card for the full case study.</p>
+            <span className="eyebrow">My work</span>
+            <h1>Projects I'm <span className="gradient-text">Proud Of</span></h1>
+            <p>A selection of QA automation frameworks, AI testing tools, and web apps I've built. Click any card for the full case study.</p>
           </Reveal>
         </div>
       </section>
@@ -120,8 +132,8 @@ export default function ProjectsPage() {
         <div className="container">
           <Reveal>
             <div className="cta-banner">
-              <h2>Want your project featured here next?</h2>
-              <p>We're booking new projects for next quarter. Let's build something worth showing off.</p>
+              <h2>Have a project that needs quality engineering?</h2>
+              <p>I'm open to QA consulting, automation frameworks, and AI testing projects. Let's talk.</p>
               <Link href="/contact" className="btn btn-primary btn-lg">Get a Quote</Link>
             </div>
           </Reveal>

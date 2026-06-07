@@ -31,8 +31,8 @@ export default function Header() {
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav">
         <Link href="/" className="logo" onClick={() => setOpen(false)}>
-          <span className="logo-mark">N</span>
-          <span>NextGen <span className="gradient-text">Digital Hub</span></span>
+          <span className="logo-mark">AR </span>
+          <span>ABDUL <span className="gradient-text">REHMAN</span></span>
         </Link>
         <nav className={`nav-links ${open ? 'open' : ''}`}>
           {links.map((l) => (

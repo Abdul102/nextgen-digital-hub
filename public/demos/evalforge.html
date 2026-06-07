@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EvalForge — LLM Evaluation Platform</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .header{background:#1e293b;border-bottom:1px solid #334155;padding:12px 20px;display:flex;align-items:center;gap:12px}
+  .logo{background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;font-weight:700;padding:6px 12px;border-radius:8px;font-size:13px}
+  .header h1{font-size:15px;color:#94a3b8}
+  .badge{background:#8b5cf620;color:#8b5cf6;border:1px solid #8b5cf640;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-left:auto}
+  .main{padding:20px;max-width:960px;margin:0 auto}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+  .stat-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px}
+  .stat-val{font-size:26px;font-weight:700;margin-bottom:4px}
+  .stat-lbl{font-size:11px;color:#64748b}
+  .green{color:#22c55e}.yellow{color:#f59e0b}.purple{color:#8b5cf6}.pink{color:#ec4899}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:20px;margin-bottom:16px}
+  .card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+  .run-btn{background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+  .metric-row{display:flex;align-items:center;margin-bottom:12px;gap:12px}
+  .metric-name{font-size:13px;width:160px;flex-shrink:0}
+  .bar-wrap{flex:1;background:#334155;border-radius:20px;height:10px;overflow:hidden}
+  .bar{height:100%;border-radius:20px;transition:width 1s ease}
+  .metric-val{font-size:13px;font-weight:600;width:44px;text-align:right}
+  .prompt-box{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;font-size:12px;line-height:1.7;margin-bottom:12px;font-family:monospace}
+  .prompt-label{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+  .response-box{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;font-size:12px;line-height:1.7;margin-top:8px}
+  .pass-pill{background:#22c55e20;color:#22c55e;border:1px solid #22c55e40;padding:2px 10px;border-radius:20px;font-size:11px}
+  .fail-pill{background:#ef444420;color:#ef4444;border:1px solid #ef444440;padding:2px 10px;border-radius:20px;font-size:11px}
+  .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ab-card{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:14px}
+  .ab-score{font-size:22px;font-weight:700;margin-top:8px}
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid #334155}
+  td{padding:9px 12px;font-size:12px;border-bottom:1px solid #1e293b}
+  tr:hover td{background:#0f172a}
+  .spin{width:14px;height:14px;border:2px solid #334155;border-top-color:#8b5cf6;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">EF</div>
+  <h1>EvalForge — LLM Evaluation Platform</h1>
+  <div class="badge">GPT-4o · Claude 3.5</div>
+</div>
+
+<div class="main">
+  <div class="stats">
+    <div class="stat-card"><div class="stat-val green">96.2%</div><div class="stat-lbl">Faithfulness Score</div></div>
+    <div class="stat-card"><div class="stat-val green">94.8%</div><div class="stat-lbl">Answer Relevance</div></div>
+    <div class="stat-card"><div class="stat-val yellow">87%</div><div class="stat-lbl">Eval Coverage</div></div>
+    <div class="stat-card"><div class="stat-val purple">0</div><div class="stat-lbl">Hallucinations (30d)</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      Evaluation Metrics — Latest Run
+      <button class="run-btn" onclick="runEval()">▶ Run Eval</button>
+    </div>
+    <div id="metricsArea">
+      <div class="metric-row"><span class="metric-name">Faithfulness</span><div class="bar-wrap"><div class="bar" id="b1" style="width:96%;background:#22c55e"></div></div><span class="metric-val green">96%</span></div>
+      <div class="metric-row"><span class="metric-name">Answer Relevance</span><div class="bar-wrap"><div class="bar" id="b2" style="width:94%;background:#22c55e"></div></div><span class="metric-val green">94%</span></div>
+      <div class="metric-row"><span class="metric-name">Context Precision</span><div class="bar-wrap"><div class="bar" id="b3" style="width:89%;background:#22c55e"></div></div><span class="metric-val green">89%</span></div>
+      <div class="metric-row"><span class="metric-name">Toxicity</span><div class="bar-wrap"><div class="bar" id="b4" style="width:2%;background:#22c55e"></div></div><span class="metric-val green">2%</span></div>
+      <div class="metric-row"><span class="metric-name">Hallucination Rate</span><div class="bar-wrap"><div class="bar" id="b5" style="width:1%;background:#22c55e"></div></div><span class="metric-val green">1%</span></div>
+      <div class="metric-row"><span class="metric-name">Latency (p95)</span><div class="bar-wrap"><div class="bar" id="b6" style="width:72%;background:#06b6d4"></div></div><span class="metric-val" style="color:#06b6d4">1.4s</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Prompt A/B Comparison</div>
+    <div class="ab-grid">
+      <div class="ab-card">
+        <div style="font-size:11px;color:#64748b">Prompt A (Current)</div>
+        <div class="prompt-box">"Answer the question based strictly on the context provided. Do not add external knowledge."</div>
+        <div class="ab-score green">96.2% <span style="font-size:12px;font-weight:400;color:#64748b">faithfulness</span></div>
+      </div>
+      <div class="ab-card">
+        <div style="font-size:11px;color:#64748b">Prompt B (Candidate)</div>
+        <div class="prompt-box">"Use only the provided documents to answer. Cite your source. Say 'I don't know' if unsure."</div>
+        <div class="ab-score yellow">91.4% <span style="font-size:12px;font-weight:400;color:#64748b">faithfulness</span></div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#22c55e">✓ Prompt A wins — shipping to production</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Recent Test Cases</div>
+    <table>
+      <thead><tr><th>Question</th><th>Faithfulness</th><th>Relevance</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>What is the refund policy?</td><td style="color:#22c55e">98%</td><td style="color:#22c55e">97%</td><td><span class="pass-pill">PASS</span></td></tr>
+        <tr><td>How do I cancel my subscription?</td><td style="color:#22c55e">95%</td><td style="color:#22c55e">96%</td><td><span class="pass-pill">PASS</span></td></tr>
+        <tr><td>What are the SLA guarantees?</td><td style="color:#f59e0b">72%</td><td style="color:#22c55e">89%</td><td><span class="fail-pill">REVIEW</span></td></tr>
+        <tr><td>Can I export my data?</td><td style="color:#22c55e">99%</td><td style="color:#22c55e">98%</td><td><span class="pass-pill">PASS</span></td></tr>
+        <tr><td>What integrations are supported?</td><td style="color:#22c55e">94%</td><td style="color:#22c55e">93%</td><td><span class="pass-pill">PASS</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function runEval() {
+  const bars = ['b1','b2','b3','b4','b5','b6'];
+  const targets = [0,0,0,0,0,0];
+  bars.forEach(id => { document.getElementById(id).style.width='0%'; });
+  setTimeout(()=>{
+    const vals = [96,94,89,2,1,72];
+    const colors = ['#22c55e','#22c55e','#22c55e','#22c55e','#22c55e','#06b6d4'];
+    bars.forEach((id,i)=>{ document.getElementById(id).style.width=vals[i]+'%'; document.getElementById(id).style.background=colors[i]; });
+  }, 800);
+}
+</script>
+</body>
+</html>

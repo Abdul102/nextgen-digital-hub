@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" width="560" height="320">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#0d1f3c"/></linearGradient>
+    <linearGradient id="gr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#06b6d4"/></linearGradient>
+    <linearGradient id="gr2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#16a34a"/></linearGradient>
+  </defs>
+  <!-- bg -->
+  <rect width="560" height="320" fill="url(#bg)" rx="12"/>
+  <!-- top bar -->
+  <rect width="560" height="40" fill="#1e293b" rx="12"/>
+  <rect y="28" width="560" height="12" fill="#1e293b"/>
+  <circle cx="20" cy="20" r="6" fill="#ef4444" opacity=".8"/>
+  <circle cx="38" cy="20" r="6" fill="#f59e0b" opacity=".8"/>
+  <circle cx="56" cy="20" r="6" fill="#22c55e" opacity=".8"/>
+  <rect x="160" y="12" width="240" height="16" rx="8" fill="#334155"/>
+  <text x="280" y="24" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">AI QA Agent — Playwright + Groq</text>
+  <!-- sidebar -->
+  <rect x="0" y="40" width="140" height="280" fill="#1a2540"/>
+  <text x="14" y="68" fill="#4f46e5" font-family="monospace" font-size="9" font-weight="bold">AI QA AGENT</text>
+  <rect x="8" y="76" width="124" height="24" rx="5" fill="#4f46e5" opacity=".25"/>
+  <text x="16" y="92" fill="#a5b4fc" font-family="monospace" font-size="9">▶ Run Tests</text>
+  <text x="16" y="116" fill="#64748b" font-family="monospace" font-size="9">📋 Test Cases</text>
+  <text x="16" y="136" fill="#64748b" font-family="monospace" font-size="9">🔧 Self-Heal</text>
+  <text x="16" y="156" fill="#64748b" font-family="monospace" font-size="9">📊 Reports</text>
+  <text x="16" y="176" fill="#64748b" font-family="monospace" font-size="9">⚙️ Settings</text>
+  <!-- status badge -->
+  <rect x="8" y="290" width="124" height="20" rx="5" fill="#22c55e" opacity=".15"/>
+  <circle cx="20" cy="300" r="4" fill="#22c55e"/>
+  <text x="30" y="304" fill="#22c55e" font-family="monospace" font-size="8">Agent Online</text>
+  <!-- main area -->
+  <!-- stat cards -->
+  <rect x="152" y="52" width="90" height="50" rx="8" fill="#1e293b"/>
+  <text x="197" y="72" text-anchor="middle" fill="#06b6d4" font-family="monospace" font-size="16" font-weight="bold">24</text>
+  <text x="197" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Tests Generated</text>
+  <rect x="252" y="52" width="90" height="50" rx="8" fill="#1e293b"/>
+  <text x="297" y="72" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="16" font-weight="bold">21</text>
+  <text x="297" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Passed</text>
+  <rect x="352" y="52" width="90" height="50" rx="8" fill="#1e293b"/>
+  <text x="397" y="72" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="16" font-weight="bold">3</text>
+  <text x="397" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Self-Healed</text>
+  <rect x="452" y="52" width="96" height="50" rx="8" fill="#1e293b"/>
+  <text x="500" y="72" text-anchor="middle" fill="#a5b4fc" font-family="monospace" font-size="16" font-weight="bold">98%</text>
+  <text x="500" y="88" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8">Coverage</text>
+  <!-- AI terminal -->
+  <rect x="152" y="114" width="246" height="142" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="164" y="130" fill="#4f46e5" font-family="monospace" font-size="8" font-weight="bold">AI AGENT LOG</text>
+  <text x="164" y="148" fill="#22c55e" font-family="monospace" font-size="8">▶ Analyzing page structure...</text>
+  <text x="164" y="162" fill="#06b6d4" font-family="monospace" font-size="8">✓ Found 12 interactive elements</text>
+  <text x="164" y="176" fill="#22c55e" font-family="monospace" font-size="8">✓ Generated test: login_flow</text>
+  <text x="164" y="190" fill="#22c55e" font-family="monospace" font-size="8">✓ Generated test: form_submit</text>
+  <text x="164" y="204" fill="#f59e0b" font-family="monospace" font-size="8">⚡ Locator healed: btn#submit</text>
+  <text x="164" y="218" fill="#22c55e" font-family="monospace" font-size="8">✓ All tests passing (21/24)</text>
+  <rect x="164" y="228" width="8" height="14" rx="1" fill="#4f46e5" opacity=".8"><animate attributeName="opacity" values="0.8;0;0.8" dur="1s" repeatCount="indefinite"/></rect>
+  <!-- test list -->
+  <rect x="408" y="114" width="140" height="142" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="418" y="130" fill="#94a3b8" font-family="monospace" font-size="8" font-weight="bold">TEST RESULTS</text>
+  <rect x="414" y="136" width="128" height="16" rx="4" fill="#22c55e" opacity=".1"/>
+  <text x="422" y="148" fill="#22c55e" font-family="monospace" font-size="8">✓ login_flow</text>
+  <rect x="414" y="156" width="128" height="16" rx="4" fill="#22c55e" opacity=".1"/>
+  <text x="422" y="168" fill="#22c55e" font-family="monospace" font-size="8">✓ form_submit</text>
+  <rect x="414" y="176" width="128" height="16" rx="4" fill="#f59e0b" opacity=".1"/>
+  <text x="422" y="188" fill="#f59e0b" font-family="monospace" font-size="8">⚡ nav_menu (healed)</text>
+  <rect x="414" y="196" width="128" height="16" rx="4" fill="#22c55e" opacity=".1"/>
+  <text x="422" y="208" fill="#22c55e" font-family="monospace" font-size="8">✓ checkout_flow</text>
+  <rect x="414" y="216" width="128" height="16" rx="4" fill="#22c55e" opacity=".1"/>
+  <text x="422" y="228" fill="#22c55e" font-family="monospace" font-size="8">✓ user_profile</text>
+  <!-- powered by -->
+  <rect x="152" y="268" width="130" height="22" rx="6" fill="url(#gr)" opacity=".15"/>
+  <text x="218" y="283" text-anchor="middle" fill="#a5b4fc" font-family="monospace" font-size="9" font-weight="bold">Powered by Groq LLaMA 3</text>
+</svg>

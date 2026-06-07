@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LoadSurge — Performance Testing</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .header{background:#1e293b;border-bottom:1px solid #334155;padding:12px 20px;display:flex;align-items:center;gap:12px}
+  .logo{background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;font-weight:700;padding:6px 12px;border-radius:8px;font-size:13px}
+  .header h1{font-size:15px;color:#94a3b8}
+  .badge{background:#22c55e20;color:#22c55e;border:1px solid #22c55e40;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-left:auto}
+  .main{padding:20px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .stat-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px}
+  .stat-val{font-size:22px;font-weight:700;margin-bottom:4px}
+  .stat-lbl{font-size:11px;color:#64748b}
+  .green{color:#22c55e}.red{color:#ef4444}.yellow{color:#f59e0b}.blue{color:#06b6d4}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:20px;margin-bottom:16px}
+  .card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+  .run-btn{background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+  canvas{width:100%;height:160px;display:block}
+  .threshold-line{stroke:#ef4444;stroke-dasharray:4,4}
+  .config-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+  .config-item{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px}
+  .config-label{font-size:10px;color:#64748b;margin-bottom:4px;text-transform:uppercase}
+  .config-val{font-size:14px;font-weight:600}
+  .phase-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .phase-bar{height:24px;border-radius:6px;display:flex;align-items:center;padding:0 10px;font-size:11px;font-weight:600;color:white;transition:width 1s ease}
+  input[type=range]{width:100%;accent-color:#f59e0b}
+  label{font-size:12px;color:#94a3b8}
+  .gate-ok{background:#22c55e20;color:#22c55e;border:1px solid #22c55e40;padding:4px 10px;border-radius:6px;font-size:11px}
+  .gate-fail{background:#ef444420;color:#ef4444;border:1px solid #ef444440;padding:4px 10px;border-radius:6px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">LS</div>
+  <h1>LoadSurge — Performance Testing Pipeline</h1>
+  <div class="badge">● Thresholds OK</div>
+</div>
+
+<div class="main">
+  <div class="stats">
+    <div class="stat-card"><div class="stat-val green">p95 &lt;200ms</div><div class="stat-lbl">Latency Gate (enforced)</div></div>
+    <div class="stat-card"><div class="stat-val blue" id="vuCount">5,000</div><div class="stat-lbl">Virtual Users</div></div>
+    <div class="stat-card"><div class="stat-val green" id="rpsCount">2,840</div><div class="stat-lbl">Requests/sec</div></div>
+    <div class="stat-card"><div class="stat-val green">0.02%</div><div class="stat-lbl">Error Rate</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
+    <div class="card">
+      <div class="card-title">
+        Latency Chart (p50 / p95 / p99)
+        <button class="run-btn" onclick="runLoad()">▶ Run Load Test</button>
+      </div>
+      <svg viewBox="0 0 600 160" preserveAspectRatio="none" id="chart" style="width:100%;height:160px;display:block">
+        <!-- Grid -->
+        <line x1="0" y1="40" x2="600" y2="40" stroke="#334155" stroke-width="1"/>
+        <line x1="0" y1="80" x2="600" y2="80" stroke="#334155" stroke-width="1"/>
+        <line x1="0" y1="120" x2="600" y2="120" stroke="#334155" stroke-width="1"/>
+        <text x="4" y="38" font-size="9" fill="#64748b">300ms</text>
+        <text x="4" y="78" font-size="9" fill="#64748b">200ms</text>
+        <text x="4" y="118" font-size="9" fill="#64748b">100ms</text>
+        <!-- Threshold line at 200ms -->
+        <line x1="0" y1="80" x2="600" y2="80" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,4" opacity=".7"/>
+        <text x="550" y="76" font-size="9" fill="#ef4444">threshold</text>
+        <!-- p95 line -->
+        <polyline id="p95line" fill="none" stroke="#f59e0b" stroke-width="2"
+          points="0,120 60,115 120,110 180,108 240,105 300,112 360,100 420,98 480,102 540,97 600,95"/>
+        <!-- p50 line -->
+        <polyline id="p50line" fill="none" stroke="#22c55e" stroke-width="2"
+          points="0,140 60,138 120,135 180,132 240,130 300,133 360,128 420,125 480,128 540,124 600,122"/>
+        <!-- p99 line -->
+        <polyline id="p99line" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4,3"
+          points="0,105 60,100 120,95 180,92 240,88 300,95 360,82 420,80 480,85 540,78 600,75"/>
+        <!-- Labels -->
+        <circle cx="580" cy="95" r="3" fill="#f59e0b"/>
+        <circle cx="580" cy="122" r="3" fill="#22c55e"/>
+        <circle cx="580" cy="75" r="3" fill="#06b6d4"/>
+        <text x="30" y="157" font-size="9" fill="#64748b">0s</text>
+        <text x="290" y="157" font-size="9" fill="#64748b">60s</text>
+        <text x="570" y="157" font-size="9" fill="#64748b">120s</text>
+      </svg>
+      <div style="display:flex;gap:16px;margin-top:8px;font-size:11px">
+        <span style="color:#22c55e">● p50: 58ms</span>
+        <span style="color:#f59e0b">● p95: 142ms</span>
+        <span style="color:#06b6d4">● p99: 198ms</span>
+        <span style="color:#ef4444">— threshold: 200ms</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">VU Configuration</div>
+      <div style="margin-bottom:14px">
+        <label>Virtual Users: <strong id="vuLabel" style="color:#f59e0b">5,000</strong></label>
+        <input type="range" min="100" max="10000" step="100" value="5000" oninput="updateVU(this.value)"/>
+      </div>
+      <div style="margin-bottom:14px">
+        <label>Duration: <strong id="durLabel" style="color:#f59e0b">2 min</strong></label>
+        <input type="range" min="1" max="10" value="2" oninput="updateDur(this.value)"/>
+      </div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:12px">Load Shape</div>
+      <div class="phase-row"><div class="phase-bar" style="width:25%;background:#4f46e5">Ramp Up</div><span style="font-size:11px;color:#64748b">30s</span></div>
+      <div class="phase-row"><div class="phase-bar" style="width:50%;background:#06b6d4">Steady</div><span style="font-size:11px;color:#64748b">90s</span></div>
+      <div class="phase-row"><div class="phase-bar" style="width:25%;background:#8b5cf6">Cool Down</div><span style="font-size:11px;color:#64748b">30s</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">CI/CD Threshold Gates</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:11px;color:#64748b;margin-bottom:6px">p95 Latency</div>
+        <div style="font-size:16px;font-weight:700;color:#22c55e;margin-bottom:6px">142ms</div>
+        <span class="gate-ok">✓ &lt; 200ms</span>
+      </div>
+      <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:11px;color:#64748b;margin-bottom:6px">Error Rate</div>
+        <div style="font-size:16px;font-weight:700;color:#22c55e;margin-bottom:6px">0.02%</div>
+        <span class="gate-ok">✓ &lt; 1%</span>
+      </div>
+      <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:11px;color:#64748b;margin-bottom:6px">Throughput</div>
+        <div style="font-size:16px;font-weight:700;color:#22c55e;margin-bottom:6px">2,840 rps</div>
+        <span class="gate-ok">✓ &gt; 2000</span>
+      </div>
+      <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:11px;color:#64748b;margin-bottom:6px">Memory Leak</div>
+        <div style="font-size:16px;font-weight:700;color:#22c55e;margin-bottom:6px">None</div>
+        <span class="gate-ok">✓ Clean</span>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:#22c55e10;border:1px solid #22c55e30;border-radius:8px;padding:10px;font-size:12px;color:#22c55e">
+      ✓ All thresholds passed — PR is clear to merge
+    </div>
+  </div>
+</div>
+
+<script>
+function updateVU(v){ document.getElementById('vuLabel').textContent=Number(v).toLocaleString(); document.getElementById('vuCount').textContent=Number(v).toLocaleString(); document.getElementById('rpsCount').textContent=Math.round(v*0.57).toLocaleString(); }
+function updateDur(v){ const labels=['1 min','2 min','3 min','4 min','5 min','6 min','7 min','8 min','9 min','10 min']; document.getElementById('durLabel').textContent=labels[v-1]; }
+function runLoad(){
+  const p95 = document.getElementById('p95line');
+  const p50 = document.getElementById('p50line');
+  p95.setAttribute('points','0,160 60,160 120,160 180,160 240,160 300,160 360,160 420,160 480,160 540,160 600,160');
+  p50.setAttribute('points','0,160 60,160 120,160 180,160 240,160 300,160 360,160 420,160 480,160 540,160 600,160');
+  setTimeout(()=>{
+    p95.setAttribute('points','0,120 60,115 120,110 180,108 240,105 300,112 360,100 420,98 480,102 540,97 600,95');
+    p50.setAttribute('points','0,140 60,138 120,135 180,132 240,130 300,133 360,128 420,125 480,128 540,124 600,122');
+  }, 1000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>APIWatch — Contract Testing Dashboard</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .header{background:#1e293b;border-bottom:1px solid #334155;padding:12px 20px;display:flex;align-items:center;gap:12px}
+  .logo{background:linear-gradient(135deg,#06b6d4,#0ea5e9);color:white;font-weight:700;padding:6px 12px;border-radius:8px;font-size:13px}
+  .header h1{font-size:15px;color:#94a3b8}
+  .badge{background:#22c55e20;color:#22c55e;border:1px solid #22c55e40;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-left:auto}
+  .main{padding:20px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .stat-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px}
+  .stat-val{font-size:26px;font-weight:700;margin-bottom:4px}
+  .stat-lbl{font-size:11px;color:#64748b}
+  .green{color:#22c55e}.red{color:#ef4444}.yellow{color:#f59e0b}.blue{color:#06b6d4}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:20px;margin-bottom:16px}
+  .card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+  .test-btn{background:linear-gradient(135deg,#06b6d4,#0ea5e9);color:white;border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+  .matrix{display:grid;gap:3px}
+  .matrix-row{display:grid;gap:3px}
+  .matrix-cell{padding:8px 6px;border-radius:6px;font-size:10px;text-align:center;font-weight:600;cursor:pointer;transition:transform .15s}
+  .matrix-cell:hover{transform:scale(1.05)}
+  .cell-ok{background:#22c55e20;color:#22c55e;border:1px solid #22c55e30}
+  .cell-fail{background:#ef444420;color:#ef4444;border:1px solid #ef444430}
+  .cell-na{background:#33415520;color:#475569;border:1px solid #33415540}
+  .service-label{font-size:10px;color:#64748b;padding:4px 0}
+  .endpoint-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;margin-bottom:6px;background:#0f172a;border:1px solid #334155}
+  .method{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700}
+  .get{background:#22c55e20;color:#22c55e}.post{background:#06b6d420;color:#06b6d4}.put{background:#f59e0b20;color:#f59e0b}.delete{background:#ef444420;color:#ef4444}
+  .ep-path{font-size:12px;font-family:monospace;flex:1}
+  .status-dot{width:8px;height:8px;border-radius:50%}
+  .dot-ok{background:#22c55e}.dot-fail{background:#ef4444}
+  .resp-time{font-size:11px;color:#64748b}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">AW</div>
+  <h1>APIWatch — Contract Testing Dashboard</h1>
+  <div class="badge">● All Services Monitored</div>
+</div>
+
+<div class="main">
+  <div class="stats">
+    <div class="stat-card"><div class="stat-val green">18</div><div class="stat-lbl">Services Covered</div></div>
+    <div class="stat-card"><div class="stat-val green">100%</div><div class="stat-lbl">Breaking Changes Caught</div></div>
+    <div class="stat-card"><div class="stat-val green">142</div><div class="stat-lbl">Contracts Passing</div></div>
+    <div class="stat-card"><div class="stat-val red" id="failCount">2</div><div class="stat-lbl">Contracts Failing</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="card">
+      <div class="card-title">
+        Consumer/Provider Matrix
+        <button class="test-btn" onclick="runContracts()">▶ Verify Contracts</button>
+      </div>
+      <div style="overflow-x:auto">
+        <div style="display:grid;grid-template-columns:80px repeat(5,1fr);gap:3px;min-width:380px" id="matrixGrid">
+          <div></div>
+          <div style="font-size:10px;color:#64748b;text-align:center;padding:4px">Auth API</div>
+          <div style="font-size:10px;color:#64748b;text-align:center;padding:4px">User API</div>
+          <div style="font-size:10px;color:#64748b;text-align:center;padding:4px">Deals API</div>
+          <div style="font-size:10px;color:#64748b;text-align:center;padding:4px">Email API</div>
+          <div style="font-size:10px;color:#64748b;text-align:center;padding:4px">Report API</div>
+
+          <div style="font-size:10px;color:#64748b;padding:8px 4px">Frontend</div>
+          <div class="matrix-cell cell-ok" title="✓ Compatible">✓</div>
+          <div class="matrix-cell cell-ok" title="✓ Compatible">✓</div>
+          <div class="matrix-cell cell-ok" title="✓ Compatible">✓</div>
+          <div class="matrix-cell cell-fail" id="m-fe-email" title="✗ Breaking change">✗</div>
+          <div class="matrix-cell cell-ok" title="✓ Compatible">✓</div>
+
+          <div style="font-size:10px;color:#64748b;padding:8px 4px">Mobile</div>
+          <div class="matrix-cell cell-ok">✓</div>
+          <div class="matrix-cell cell-ok">✓</div>
+          <div class="matrix-cell cell-ok">✓</div>
+          <div class="matrix-cell cell-ok">✓</div>
+          <div class="matrix-cell cell-fail" id="m-mob-report" title="✗ Schema mismatch">✗</div>
+
+          <div style="font-size:10px;color:#64748b;padding:8px 4px">Analytics</div>
+          <div class="matrix-cell cell-na">—</div>
+          <div class="matrix-cell cell-ok">✓</div>
+          <div class="matrix-cell cell-ok">✓</div>
+          <div class="matrix-cell cell-na">—</div>
+          <div class="matrix-cell cell-ok">✓</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:#ef4444" id="contractAlert">
+        ⚠ 2 breaking changes blocked from deploying to production
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Live API Endpoints</div>
+      <div class="endpoint-row"><span class="method get">GET</span><span class="ep-path">/api/v1/users/:id</span><div class="status-dot dot-ok"></div><span class="resp-time">42ms</span></div>
+      <div class="endpoint-row"><span class="method post">POST</span><span class="ep-path">/api/v1/auth/login</span><div class="status-dot dot-ok"></div><span class="resp-time">128ms</span></div>
+      <div class="endpoint-row"><span class="method post">POST</span><span class="ep-path">/api/v1/deals/create</span><div class="status-dot dot-ok"></div><span class="resp-time">87ms</span></div>
+      <div class="endpoint-row"><span class="method put">PUT</span><span class="ep-path">/api/v1/emails/template</span><div class="status-dot dot-fail"></div><span class="resp-time" style="color:#ef4444">Schema ✗</span></div>
+      <div class="endpoint-row"><span class="method get">GET</span><span class="ep-path">/api/v1/reports/export</span><div class="status-dot dot-fail"></div><span class="resp-time" style="color:#ef4444">Mismatch ✗</span></div>
+      <div class="endpoint-row"><span class="method delete">DEL</span><span class="ep-path">/api/v1/contacts/:id</span><div class="status-dot dot-ok"></div><span class="resp-time">35ms</span></div>
+      <div class="endpoint-row"><span class="method get">GET</span><span class="ep-path">/api/v1/deals/pipeline</span><div class="status-dot dot-ok"></div><span class="resp-time">61ms</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Contract Violation Details</div>
+    <div style="background:#ef444410;border:1px solid #ef444430;border-radius:8px;padding:14px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:600;color:#ef4444;margin-bottom:6px">✗ Frontend → Email API: Breaking Change Detected</div>
+      <div style="font-size:11px;color:#94a3b8;font-family:monospace">Expected field: <span style="color:#f59e0b">templateHtml</span> (string)<br/>Provider returns: <span style="color:#ef4444">template_html</span> (string) — snake_case breaking consumer</div>
+      <div style="margin-top:8px;font-size:11px;color:#ef4444">🚫 Deploy blocked · Pact Broker: contract-123</div>
+    </div>
+    <div style="background:#ef444410;border:1px solid #ef444430;border-radius:8px;padding:14px">
+      <div style="font-size:12px;font-weight:600;color:#ef4444;margin-bottom:6px">✗ Mobile → Report API: Schema Mismatch</div>
+      <div style="font-size:11px;color:#94a3b8;font-family:monospace">Expected: <span style="color:#f59e0b">results[]</span> array<br/>Provider returns: <span style="color:#ef4444">data.results[]</span> — extra nesting breaks mobile parser</div>
+      <div style="margin-top:8px;font-size:11px;color:#ef4444">🚫 Deploy blocked · Pact Broker: contract-124</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function runContracts() {
+  document.getElementById('failCount').textContent = '...';
+  document.getElementById('contractAlert').textContent = '⏳ Running contract verifications...';
+  const cells = ['m-fe-email','m-mob-report'];
+  cells.forEach(id => {
+    const el = document.getElementById(id);
+    el.className = 'matrix-cell cell-na';
+    el.textContent = '...';
+  });
+  setTimeout(()=>{
+    document.getElementById('m-fe-email').className='matrix-cell cell-fail';
+    document.getElementById('m-fe-email').textContent='✗';
+    document.getElementById('m-mob-report').className='matrix-cell cell-fail';
+    document.getElementById('m-mob-report').textContent='✗';
+    document.getElementById('failCount').textContent='2';
+    document.getElementById('contractAlert').textContent='⚠ 2 breaking changes blocked from deploying to production';
+  }, 1800);
+}
+</script>
+</body>
+</html>

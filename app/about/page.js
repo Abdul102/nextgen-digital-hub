@@ -4,8 +4,8 @@ import Reveal from '../components/Reveal';
 import CEOImage from './CEOImage';
 
 export const metadata = {
-  title: 'About Us — Mission, Vision & Leadership | NextGen Digital Hub',
-  description: 'Learn about NextGen Digital Hub: mission to empower businesses with AI, QA, and full-stack engineering. Meet our founder Abdul Rehman.'
+  title: 'About — Abdul Rehman | QA Engineer & AI Testing Specialist',
+  description: 'Learn about Abdul Rehman — Software Quality Engineer with 3+ years at iClosed, specializing in QA automation, AI agent testing, and building self-healing test frameworks.'
 };
 
 export default function AboutPage() {
@@ -14,9 +14,9 @@ export default function AboutPage() {
       <section className="page-header">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">About us</span>
-            <h1>We Build the <span className="gradient-text">Digital Future</span></h1>
-            <p>NextGen Digital Hub is a team of engineers, designers, and AI specialists obsessed with shipping software that creates real business value.</p>
+            <span className="eyebrow">About me</span>
+            <h1>Quality is a <span className="gradient-text">Mindset</span></h1>
+            <p>I'm a Software Quality Engineer obsessed with making sure software works the way users expect — from manual testing to AI-powered automation frameworks.</p>
           </Reveal>
         </div>
       </section>
@@ -24,17 +24,17 @@ export default function AboutPage() {
       <section className="section">
         <div className="container split">
           <Reveal>
-            <span className="eyebrow">Who we are</span>
-            <h2 className="mb">Engineering excellence — without the agency overhead.</h2>
-            <p className="mb">Founded in 2021, NextGen Digital Hub started with a simple belief: that small, senior teams can outperform large agencies by an order of magnitude.</p>
-            <p>We're product-minded, AI-forward, and quality-obsessed — and we treat every engagement like it's our own product.</p>
+            <span className="eyebrow">Who I am</span>
+            <h2 className="mb">Engineering quality from code to production.</h2>
+            <p className="mb">With 3+ years of hands-on experience at iClosed, I've grown from manual QA into a full automation specialist — building frameworks, testing AI agents, and integrating quality into every step of the CI/CD pipeline.</p>
+            <p>I believe QA engineers are not gatekeepers — we're enablers who help the whole team move faster with confidence.</p>
           </Reveal>
           <Reveal>
             <div className="grid grid-2">
-              <div className="card"><h3>120+ Projects</h3><p>Shipped across 18 industries.</p></div>
-              <div className="card"><h3>Senior-Only Team</h3><p>Average 8+ years experience.</p></div>
-              <div className="card"><h3>Global Footprint</h3><p>Distributed across 4 continents.</p></div>
-              <div className="card"><h3>98% Retention</h3><p>Most clients stay 12+ months.</p></div>
+              <div className="card"><h3>3+ Years</h3><p>Professional QA experience at iClosed.</p></div>
+              <div className="card"><h3>AI Testing</h3><p>LLM evaluation, RAG accuracy, hallucination tracking.</p></div>
+              <div className="card"><h3>Full Stack</h3><p>MERN Stack certified, frontend to backend.</p></div>
+              <div className="card"><h3>CI/CD Integrated</h3><p>GitHub Actions, Jenkins, GitLab CI pipelines.</p></div>
             </div>
           </Reveal>
         </div>
@@ -43,20 +43,20 @@ export default function AboutPage() {
       <section className="section" style={{ background: 'var(--bg-soft)' }}>
         <div className="container">
           <Reveal className="text-center">
-            <span className="eyebrow">Mission & vision</span>
-            <h2 className="section-title">Why we exist</h2>
-            <p className="section-subtitle">Our north star: democratize world-class engineering for ambitious teams everywhere.</p>
+            <span className="eyebrow">What I believe</span>
+            <h2 className="section-title">My Philosophy</h2>
+            <p className="section-subtitle">Quality is not a phase at the end of development — it's a mindset woven into every line of code.</p>
           </Reveal>
           <Reveal stagger className="grid grid-2">
             <div className="card">
-              <div className="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-              <h3>Our Mission</h3>
-              <p>To empower businesses of every size with AI-driven, quality-first digital solutions — accelerating their journey from idea to impact.</p>
+              <div className="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></div>
+              <h3>Shift-Left Testing</h3>
+              <p>Catch bugs when they're cheapest to fix — at the design and development stage, not after deployment. I integrate testing into the earliest phases of every project.</p>
             </div>
             <div className="card">
-              <div className="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-              <h3>Our Vision</h3>
-              <p>A world where every business has access to the same caliber of engineering excellence as the top 1% of tech companies.</p>
+              <div className="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+              <h3>Automation First</h3>
+              <p>Manual testing has its place, but scalable quality requires smart automation. I build self-healing frameworks that adapt to UI changes and reduce maintenance overhead.</p>
             </div>
           </Reveal>
         </div>
@@ -65,9 +65,8 @@ export default function AboutPage() {
       <section className="section">
         <div className="container">
           <Reveal className="text-center">
-            <span className="eyebrow">Leadership</span>
-            <h2 className="section-title">Meet the <span className="gradient-text">Founder</span></h2>
-            <p className="section-subtitle">The vision, expertise, and engineering DNA behind NextGen Digital Hub.</p>
+            <span className="eyebrow">The person behind the work</span>
+            <h2 className="section-title">Meet <span className="gradient-text">Abdul Rehman</span></h2>
           </Reveal>
 
           <div className="split mt-lg">
@@ -75,47 +74,113 @@ export default function AboutPage() {
               <CEOImage />
             </Reveal>
             <Reveal>
-              <span className="eyebrow">Founder & CEO</span>
+              <span className="eyebrow">Software Quality Engineer</span>
               <h2 className="mb-sm">Abdul Rehman</h2>
-              <p className="mb">Abdul is a multi-disciplinary technologist with deep expertise in QA engineering, AI systems, and full-stack development.</p>
-              <p className="mb">He's led technical delivery on platforms used by hundreds of thousands of users — from AI-powered SaaS to enterprise QA automation frameworks.</p>
+              <p className="mb">Quality Assurance Specialist at iClosed (Feb 2023 – Present) — building automation frameworks, testing AI-powered features, and making sure every release ships with confidence.</p>
+              <p className="mb">Previously a Frontend Developer at 1zero7 (Aug 2021 – Dec 2022) and Software Developer at Oxigen (Aug 2020 – Jan 2021) — giving me a full-stack perspective on quality.</p>
+
               <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', marginTop: 24, marginBottom: 8 }}>Core Skills</h4>
               <div className="skill-tags">
-                {['QA Automation','AI Tools & LLMs','Web Development','SaaS Architecture','React / Next.js','Node.js','Cloud (AWS / GCP)','CI/CD'].map((s) => (
+                {[
+                  'QA Automation','AI Agent Testing','Selenium','Playwright','Cypress','PyTest',
+                  'Postman / RestAssured','JMeter / k6','CI/CD','GitHub Actions','DeepEval','LangSmith',
+                  'React / Next.js','Node.js','MERN Stack','Bug Triage & RCA'
+                ].map((s) => (
                   <span key={s} className="skill-tag">{s}</span>
                 ))}
+              </div>
+
+              <div style={{ marginTop: 24, display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <a href="mailto:abdulrehmanzahoor10@gmail.com" className="btn btn-outline btn-sm">📧 Personal Email</a>
+                <a href="mailto:abdul.rehman@iclosed.io" className="btn btn-outline btn-sm">💼 Work Email</a>
               </div>
             </Reveal>
           </div>
 
           <div className="grid grid-2" style={{ marginTop: 64 }}>
             <Reveal>
-              <h3 className="mb">Experience Timeline</h3>
+              <h3 className="mb">Experience</h3>
               <div className="timeline">
                 {[
-                  { year: '2021 – Present', title: 'Founder & CEO — NextGen Digital Hub', desc: 'Built and scaled a 25-person remote engineering studio serving 45+ global clients.' },
-                  { year: '2020 – 2021', title: 'Lead AI/QA Engineer — Enterprise SaaS', desc: 'Architected an AI-powered test generation framework that cut QA cycle time by 60%.' },
-                  { year: '2018 – 2020', title: 'Senior Full-Stack Engineer', desc: 'Delivered React/Node platforms processing millions of transactions per month.' },
-                  { year: '2016 – 2018', title: 'QA Automation Engineer', desc: 'Built end-to-end Selenium and Cypress suites for fintech and healthtech products.' }
+                  {
+                    year: 'Feb 2023 – Present',
+                    title: 'Quality Assurance Specialist — iClosed',
+                    desc: 'Full-time, remote (United States). Building QA automation frameworks, testing AI agents and LLM-powered features, integrating pipelines into CI/CD, and leading smoke + regression testing initiatives.',
+                    skills: 'QA Automation · Bug Tracking · QA Engineering · Selenium · Smoke Testing'
+                  },
+                  {
+                    year: 'Aug 2021 – Dec 2022',
+                    title: 'Frontend Developer — 1zero7',
+                    desc: 'Full-time, on-site (Pakistan). Built and maintained front-end interfaces, collaborated on UI/UX improvements, and contributed to component testing and cross-browser compatibility.',
+                    skills: 'React · JavaScript · CSS · Front-End Development'
+                  },
+                  {
+                    year: 'Aug 2020 – Jan 2021',
+                    title: 'Software Developer — Oxigen',
+                    desc: 'Part-time, on-site (Pakistan). Developed software features and participated in testing cycles for product releases.',
+                    skills: 'Software Development · Testing · Collaboration'
+                  }
                 ].map((t) => (
                   <div className="timeline-item" key={t.year}>
                     <div className="timeline-year">{t.year}</div>
                     <h4>{t.title}</h4>
                     <p>{t.desc}</p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 4 }}>{t.skills}</p>
                   </div>
                 ))}
               </div>
             </Reveal>
             <Reveal>
-              <h3 className="mb">Achievements</h3>
+              <h3 className="mb">Education</h3>
+              <div className="timeline">
+                {[
+                  {
+                    year: 'Feb 2023 – Sep 2023',
+                    title: 'Full Stack Web Deployment Diploma — ITI (Information Technology Institute)',
+                    desc: 'Diploma in Computer Science, specializing in full stack web deployment with modern MERN stack technologies.',
+                    skills: 'MERN Stack · Full Stack Web Development · Deployment'
+                  },
+                  {
+                    year: 'Oct 2018 – Oct 2022',
+                    title: 'BSCS — Bachelor of Science in Computer Science — Superior College',
+                    desc: 'Completed 4-year Bachelor\'s degree in Computer Science. Focused on core CS fundamentals, software engineering, data structures, and front-end development.',
+                    skills: 'Computer Science · Software Engineering · Front-End Development'
+                  },
+                  {
+                    year: 'May 2015 – Apr 2017',
+                    title: 'ICS, Computer Science — Punjab College',
+                    desc: 'Intermediate in Computer Science, building the academic foundation for software and technology studies.',
+                    skills: 'Computer Science · ICS'
+                  }
+                ].map((t) => (
+                  <div className="timeline-item" key={t.year}>
+                    <div className="timeline-year">{t.year}</div>
+                    <h4>{t.title}</h4>
+                    <p>{t.desc}</p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 4 }}>{t.skills}</p>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="mb" style={{ marginTop: 40 }}>LinkedIn Skills</h3>
+              <div className="skill-tags">
+                {[
+                  'Testing','Bug Tracking','QA Automation','QA Engineering',
+                  'Selenium','Quality Assurance','Smoke Testing','Budgeting'
+                ].map((s) => (
+                  <span key={s} className="skill-tag">{s}</span>
+                ))}
+              </div>
+
+              <h3 className="mb" style={{ marginTop: 32 }}>Recent Focus Areas</h3>
               {[
-                { title: '120+ Successful Deliveries', desc: 'Across web, mobile, AI, and SaaS projects globally.' },
-                { title: 'Built 4 Open-Source Tools', desc: 'Developer tools downloaded over 50,000 times.' },
-                { title: 'Featured Speaker', desc: 'Spoken at 15+ conferences on AI in QA and SaaS architecture.' },
-                { title: '98% Client Retention', desc: 'Most engagements extend beyond original scope.' }
+                { title: 'Evaluation Frameworks for AI Agents', desc: 'DeepEval, Promptfoo, LangSmith, Cloud, GPT-based evaluation pipelines.' },
+                { title: 'RAG Pipeline Testing', desc: 'Testing vector database accuracy, retrieval quality, and hallucination rates.' },
+                { title: 'Self-Healing Test Scripts', desc: 'Building AI-assisted locator strategies that adapt to UI changes automatically.' },
+                { title: 'Contract Testing', desc: 'Pact-based API contract testing integrated into shift-left CI/CD workflows.' }
               ].map((a) => (
-                <div className="feature-row" key={a.title}>
-                  <div className="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+                <div className="feature-row" key={a.title} style={{ marginBottom: 12 }}>
+                  <div className="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
                   <div><h4>{a.title}</h4><p>{a.desc}</p></div>
                 </div>
               ))}
@@ -128,9 +193,9 @@ export default function AboutPage() {
         <div className="container">
           <Reveal>
             <div className="cta-banner">
-              <h2>Want to work with us?</h2>
-              <p>We take on a limited number of projects each quarter — let's see if we're a fit.</p>
-              <Link href="/contact" className="btn btn-primary btn-lg">Start the Conversation</Link>
+              <h2>Open to new opportunities</h2>
+              <p>Quality Engineer / SDET roles (remote / hybrid) · Freelance QA consulting for AI products · Speaking on AI testing and automation</p>
+              <Link href="/contact" className="btn btn-primary btn-lg">Let's Connect</Link>
             </div>
           </Reveal>
         </div>
